@@ -1,3 +1,4 @@
 .idea
 output
 CMakeLists.txt
+cmake-build-debug
