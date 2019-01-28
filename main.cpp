@@ -13,17 +13,18 @@ int main(int argc, char* argv[])
     Mat blur;
     Mat out;
 
-    cvtColor(img, gray, COLOR_BGR2HSV);
-    vector<Mat> channels;
-    split(gray, channels);
-    threshold(channels[1], out, 0, 255, CV_THRESH_BINARY + CV_THRESH_OTSU);
-
-
-//    cvtColor(img, gray, CV_BGR2GRAY);
-//    GaussianBlur(gray, blur,Size(5,5),0);
-//    threshold(blur, out, 0, 255, CV_THRESH_BINARY + CV_THRESH_OTSU);
-    medianBlur(out, out, 5);
-
+    if(argc == 3){
+        cvtColor(img, gray, COLOR_BGR2HSV);
+        vector<Mat> channels;
+        split(gray, channels);
+        threshold(channels[1], out, 0, 255, CV_THRESH_BINARY + CV_THRESH_OTSU);
+    }
+    else{
+       cvtColor(img, gray, CV_BGR2GRAY);
+       GaussianBlur(gray, blur,Size(5,5),0);
+       threshold(blur, out, 0, 255, CV_THRESH_BINARY + CV_THRESH_OTSU);
+       medianBlur(out, out, 5);
+    }
  //  adaptiveThreshold(blur, out, 255, ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY, 11, 1); // ADAPTIVE_THRESH_GAUSSIAN_C , ADAPTIVE_THRESH_MEAN_C
 
 
