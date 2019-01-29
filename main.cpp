@@ -2,7 +2,7 @@
 #include <string>
 #include <opencv2/opencv.hpp>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <set>
 #include <algorithm>
 
@@ -15,6 +15,41 @@ vector<pair<int, int>> directions {
                                     {1, 1}, {1, 0}, {1, -1},
                                     {0, -1}, {0, 1}
                                   };
+
+
+//union-find functions
+
+int find_root(unordered_map<int, pair<int, int>>& parent, int x){
+    if(parent[x].first != x){
+        parent[x].first = find_root(parent, parent[x].first);
+    }
+    return parent[x].first;
+}
+
+
+void union_sets(unordered_map<int, pair<int, int>>& parent, int x, int y){
+    int root1 = find_root(parent, x);
+    int root2 = find_root(parent, y);
+    if (root1 == root2){
+        return;
+    }
+    if(parent[root1].second > parent[root2].second){
+        parent[root2].first = root1;
+        parent[root2].second += parent[root1].second;
+    }
+    else {
+        parent[root1].first = root2;
+        parent[root1].second += parent[root2].second;
+    }
+}
+
+void make_set(unordered_map<int, pair<int, int>>& parent, int x){
+    parent[x].first = x;
+    parent[x].second = 1;
+
+}
+
+//
 
 
 Mat transform_image_2_binary(const Mat& img, int method){
@@ -36,55 +71,75 @@ Mat transform_image_2_binary(const Mat& img, int method){
     return out;
 }
 
-int** label_mat(const Mat& mat){
-    int** labeled = new int*[mat.rows];
+int** convert_mat(const Mat& mat){
+    int** data = new int*[mat.rows];
     for (int i = 0; i < mat.rows; ++i){
-        labeled[i] = new int[mat.cols];
+        data[i] = new int[mat.cols];
     }
     for(int row = 0; row < mat.rows; ++row) {
         auto* p = mat.ptr(row);
         for(int col = 0; col < mat.cols; ++col) {
             if(!p[col]){
-                labeled[row][col] = row * col + col + 1;
+                data[row][col] = 0;
             }
             else {
-                labeled[row][col] = 0;
+                data[row][col] = 1;
             }
         }
     }
-    return labeled;
+    return data;
 }
 
-void connected_component_labeling(int** a, int rows, int cols){
-    unordered_map<int, vector<int>> linked ;
+int** connected_component_labeling(int** a, int rows, int cols){
+    unordered_map<int, pair<int, int>> parent;
+    int** labeled = new int*[rows];
+    for (int i = 0; i < rows; ++i){
+        labeled[i] = new int[cols];
+        fill(labeled[i], labeled[i] + cols, 0);
+    }
     for (int i = 0; i <  rows; ++i){
         for (int j = 0; j < cols; ++j){
+            if(!a[i][j]){
+                continue;
+            }
             vector<int> neighbours;
-            int m = a[i][j];
+            int m = numeric_limits<int>::max();
             for(auto d : directions){
-                int neighbour = a[i + d.first][j + d.second];
-                if(neighbour){
-                    neighbours.push_back(neighbour);
-                    m = min(m, neighbour);
+                int ncol = j + d.second;
+                int nrow = i + d.first;
+                if ((ncol >= 0 && ncol < cols) && (nrow >= 0 && nrow < rows)){
+                    int neighbour = labeled[nrow][ncol];
+                    if(neighbour){
+                        neighbours.push_back(neighbour);
+                        m = min(m, neighbour);
+                    }
                 }
             }
             if(neighbours.empty()){
-                vector<int> v { a[i][j] };
-                linked[a[i][j]] = v;
+                labeled[i][j] = i * cols + j + 1;
+                make_set(parent, labeled[i][j]);
             }
             else {
-                a[i][j] = m;
+                labeled[i][j] = m;
                 for (int n : neighbours){
-                    set_union(linked[n].begin(), linked[n].end(), neighbours.begin(), neighbours.end(),
-                              back_inserter(linked[n]));
+                    union_sets(parent, m, find_root(parent, n));
                 }
-
             }
-
         }
     }
 
+    for (int i = 0; i <  rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if(!a[i][j]){
+                continue;
+            }
+            labeled[i][j] = find_root(parent, labeled[i][j]);
+        }
+    }
+    return labeled;
+
 }
+
 
 
 int main(int argc, char* argv[]) {
@@ -96,13 +151,14 @@ int main(int argc, char* argv[]) {
     Mat out = transform_image_2_binary(img, method);
     imwrite("./black-white.jpg", out);
 
-    int** labeled = label_mat(out);
-//    for(auto i = 0; i < out.rows; ++i){
-//        for(auto j = 0 ; j < out.cols; ++j){
-//            cout << labeled[i][j] << " ";
-//        }
-//        cout << "\n";
-//    }
+    int** data = convert_mat(out);
+    int** labeled = connected_component_labeling(data, out.rows, out.cols);
+    for(int i = 0; i < out.rows; ++i){
+        for(int j = 0 ; j < out.cols; ++j){
+            cout << labeled[i][j] << " ";
+        }
+        cout << "\n";
+    }
 //    cout << "\n\n\n";
 //    cout<< labeled[0][0];
 //    cout << out;
@@ -111,9 +167,9 @@ int main(int argc, char* argv[]) {
 
     // delete labeled matrix
     for (int i = 0; i < out.rows; ++i){
-        delete [] labeled[i];
+        delete [] data[i];
     }
-    delete [] labeled;
+    delete [] data;
 
 
 

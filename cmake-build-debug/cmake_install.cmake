@@ -1,4 +1,4 @@
-# Install script for directory: /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array
+# Install script for directory: /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
