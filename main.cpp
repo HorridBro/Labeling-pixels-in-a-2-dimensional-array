@@ -5,13 +5,11 @@
 using namespace std;
 using namespace cv;
 
-int main(int argc, char* argv[]) {
-    Mat img = imread(argv[1]);
-    Mat gray;
-    Mat blur;
-    Mat out;
 
-    if(argc == 3){
+
+Mat transform_image_2_binary(const Mat& img, int method){
+    Mat gray, blur, out;
+    if (method){
         cvtColor(img, gray, COLOR_BGR2HSV);
         vector<Mat> channels;
         split(gray, channels);
@@ -23,6 +21,24 @@ int main(int argc, char* argv[]) {
         threshold(blur, out, 0, 255, CV_THRESH_BINARY + CV_THRESH_OTSU);
         medianBlur(out, out, 5);
     }
+    imwrite("./gray.jpg", gray);
+    return out;
+}
+
+
+
+int main(int argc, char* argv[]) {
+    Mat img = imread(argv[1]);
+    int method = 0;
+    if(argc > 2) {
+        method = 1;
+    }
+    Mat out = transform_image_2_binary(img, method);
+
+
+
+
+
  //  adaptiveThreshold(blur, out, 255, ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY, 11, 1); // ADAPTIVE_THRESH_GAUSSIAN_C , ADAPTIVE_THRESH_MEAN_C
 
 
@@ -31,12 +47,15 @@ int main(int argc, char* argv[]) {
 //    double thresh_im = threshold(out, out, 0, 255, CV_THRESH_BINARY + CV_THRESH_OTSU);
 //    thresh = bitwise_or(adapt_thresh_im, thresh_im)
 
-    imwrite("./gray.jpg", gray);
-    imwrite("./blur.jpg", blur);
-    imwrite("./black-white.jpg", out);
-    imshow("input", img);
-    imshow("intermediary", gray);
-    imshow("black-white", out);
-    waitKey(0);
+
+
+
+//    imwrite("./gray.jpg", gray);
+//    imwrite("./blur.jpg", blur);
+     imwrite("./black-white.jpg", out);
+//    imshow("input", img);
+//    imshow("intermediary", gray);
+//    imshow("black-white", out);
+//    waitKey(0);
     return 0;
 }
