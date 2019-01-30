@@ -143,13 +143,13 @@ Mat transform_image_2_binary(const Mat& img, int method){
         cvtColor(img, gray, COLOR_BGR2HSV);
         vector<Mat> channels;
         split(gray, channels);
-        threshold(channels[1], out, 0, 255, CV_THRESH_BINARY + CV_THRESH_OTSU);
+        threshold(channels[1], out, 0, 255, THRESH_BINARY + THRESH_OTSU);
     }
     else {
         //Grayscale
-        cvtColor(img, gray, CV_BGR2GRAY);
+        cvtColor(img, gray, COLOR_BGR2GRAY);
         GaussianBlur(gray, blur,Size(5,5),0);
-        threshold(blur, out, 0, 255, CV_THRESH_BINARY + CV_THRESH_OTSU);
+        threshold(blur, out, 0, 255, THRESH_BINARY + THRESH_OTSU);
     }
     medianBlur(out, out, 5);
     return out;
@@ -176,7 +176,7 @@ int** convert_mat(const Mat& mat){
 }
 
 
-int** connected_component_labeling(int** a, int rows, int cols){
+int** connected_component_labeling_serial(int** a, int rows, int cols){
     unordered_map<int, pair<int, int>> parent;
     int** labeled = new int*[rows];
     for (int i = 0; i < rows; ++i){
@@ -286,15 +286,14 @@ int main(int argc, char* argv[]) {
             show_images = 1;
         }
     }
-
     Mat out = transform_image_2_binary(img, method);
     int rows = out.rows , cols = out.cols;
     int** data = convert_mat(out);
     high_resolution_clock::time_point start = high_resolution_clock::now();
-    int** labeled = connected_component_labeling(data, rows, cols);
+    int** labeled = connected_component_labeling_serial(data, rows, cols);
     high_resolution_clock::time_point stop = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>( stop - start ).count();
-    cout << "Connected Component Labeling Duration = " << duration / 1000.0 << " seconds\n";
+    auto duration = duration_cast<seconds>( stop - start ).count();
+    cout << "Connected Component Labeling Duration = " << duration << " seconds\n";
     uchar* colored = color_labels(labeled, rows, cols);
     Mat final = create_output_mat(colored, rows, cols);
     imwrite("./black-white.jpg", out);
