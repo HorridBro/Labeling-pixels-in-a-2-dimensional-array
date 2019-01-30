@@ -5,17 +5,100 @@
 #include <unordered_map>
 #include <set>
 #include <algorithm>
+#include <chrono>
+
 
 using namespace std;
 using namespace cv;
+using namespace std::chrono;
 
 
-vector<pair<int, int>> directions {
-                                    {-1, -1}, {-1, 0}, {-1, 1},
-                                    {1, 1}, {1, 0}, {1, -1},
-                                    {0, -1}, {0, 1}
-                                  };
+// check all 8 neighbours
+//vector<pair<int, int>> directions {
+//                                    {-1, -1}, {-1, 0}, {-1, 1},
+//                                    {1, 1}, {1, 0}, {1, -1},
+//                                    {0, -1}, {0, 1}
+//                                  };
 
+//check only w, n-w, n ,e neighbours
+vector<pair<int, int>> directions { {0, -1}, {-1, -1}, {-1, 0}, {-1, 1} };
+
+vector<int> colors = {
+        0x00FF00,
+        0x0000FF,
+        0xFF0000,
+        0x01FFFE,
+        0xFFA6FE,
+        0xFFDB66,
+        0x006401,
+        0x010067,
+        0x95003A,
+        0x007DB5,
+        0xFF00F6,
+        0xFFEEE8,
+        0x774D00,
+        0x90FB92,
+        0x0076FF,
+        0xD5FF00,
+        0xFF937E,
+        0x6A826C,
+        0xFF029D,
+        0xFE8900,
+        0x7A4782,
+        0x7E2DD2,
+        0x85A900,
+        0xFF0056,
+        0xA42400,
+        0x00AE7E,
+        0x683D3B,
+        0xBDC6FF,
+        0x263400,
+        0xBDD393,
+        0x00B917,
+        0x9E008E,
+        0x001544,
+        0xC28C9F,
+        0xFF74A3,
+        0x01D0FF,
+        0x004754,
+        0xE56FFE,
+        0x788231,
+        0x0E4CA1,
+        0x91D0CB,
+        0xBE9970,
+        0x968AE8,
+        0xBB8800,
+        0x43002C,
+        0xDEFF74,
+        0x00FFC6,
+        0xFFE502,
+        0x620E00,
+        0x008F9C,
+        0x98FF52,
+        0x7544B1,
+        0xB500FF,
+        0x00FF78,
+        0xFF6E41,
+        0x005F39,
+        0x6B6882,
+        0x5FAD4E,
+        0xA75740,
+        0xA5FFD2,
+        0xFFB167,
+        0x009BFF,
+        0xE85EBE,
+};
+
+// utility functions
+
+void delete_matrix(int** data, int rows){
+    for (int i = 0; i < rows; ++i){
+        delete [] data[i];
+    }
+    delete [] data;
+}
+
+//
 
 //union-find functions
 
@@ -43,14 +126,15 @@ void union_sets(unordered_map<int, pair<int, int>>& parent, int x, int y){
     }
 }
 
+
 void make_set(unordered_map<int, pair<int, int>>& parent, int x){
     parent[x].first = x;
     parent[x].second = 1;
 
 }
-
 //
 
+// main functions
 
 Mat transform_image_2_binary(const Mat& img, int method){
     Mat gray, blur, out;
@@ -71,6 +155,7 @@ Mat transform_image_2_binary(const Mat& img, int method){
     return out;
 }
 
+
 int** convert_mat(const Mat& mat){
     int** data = new int*[mat.rows];
     for (int i = 0; i < mat.rows; ++i){
@@ -89,6 +174,7 @@ int** convert_mat(const Mat& mat){
     }
     return data;
 }
+
 
 int** connected_component_labeling(int** a, int rows, int cols){
     unordered_map<int, pair<int, int>> parent;
@@ -127,7 +213,6 @@ int** connected_component_labeling(int** a, int rows, int cols){
             }
         }
     }
-
     for (int i = 0; i <  rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             if(!a[i][j]){
@@ -137,61 +222,95 @@ int** connected_component_labeling(int** a, int rows, int cols){
         }
     }
     return labeled;
-
 }
 
+
+uchar* color_labels(int** a, int rows, int cols){
+    unordered_map<int, int> color_map;
+    int sz = rows * cols;
+    uchar* colored = new uchar[sz * 3];
+    fill(colored, colored + sz * 3, 0);
+    int id = 0;
+    for(int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            int elem = a[i][j];
+            if(!elem){
+                continue;
+            }
+            int current_color;
+            if(color_map.find(elem) == color_map.end()){
+                current_color = colors[id % colors.size()];
+                id++;
+                color_map[elem] = current_color;
+            }
+            else{
+                current_color = color_map[elem];
+            }
+            uchar r = (uchar)((current_color >> 16) & 0xFF);
+            uchar g = (uchar)((current_color >> 8) & 0xFF);
+            uchar b = (uchar)((current_color) & 0xFF);
+            int index = i * cols + j;
+            colored[index] = r;
+            colored[sz + index] = g;
+            colored[sz * 2 + index] = b;
+        }
+    }
+    return colored;
+}
+
+
+Mat create_output_mat(uchar* data, int rows, int cols){
+    Mat final;
+    Mat channelR(rows, cols, CV_8UC1, data);
+    Mat channelG(rows, cols, CV_8UC1, data + rows * cols);
+    Mat channelB(rows, cols, CV_8UC1, data + 2 * rows * cols);
+    vector<Mat> channels{ channelB, channelG, channelR };
+    merge(channels, final);
+    return final;
+}
 
 
 int main(int argc, char* argv[]) {
     Mat img = imread(argv[1]);
-    int method = 0;
-    if(argc > 2) {
-        method = 1;
+    int show_images = 0,  method = 0;
+    if (argc < 2){
+        cout << "Error, invalid args! " << "Usage:\t" << argv[0] << " image_path [-hsv] [-show_images]\n";
+        exit(1);
     }
-    Mat out = transform_image_2_binary(img, method);
-    imwrite("./black-white.jpg", out);
-
-    int** data = convert_mat(out);
-    int** labeled = connected_component_labeling(data, out.rows, out.cols);
-    for(int i = 0; i < out.rows; ++i){
-        for(int j = 0 ; j < out.cols; ++j){
-            cout << labeled[i][j] << " ";
+    for(int i = 2; i < argc; ++i){
+        string ar= argv[i];
+        if (ar == "-hsv"){
+            method = 1;
         }
-        cout << "\n";
+        else if( ar == "-show_images"){
+            show_images = 1;
+        }
     }
-//    cout << "\n\n\n";
-//    cout<< labeled[0][0];
-//    cout << out;
 
+    Mat out = transform_image_2_binary(img, method);
+    int rows = out.rows , cols = out.cols;
+    int** data = convert_mat(out);
+    high_resolution_clock::time_point start = high_resolution_clock::now();
+    int** labeled = connected_component_labeling(data, rows, cols);
+    high_resolution_clock::time_point stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>( stop - start ).count();
+    cout << "Connected Component Labeling Duration = " << duration / 1000.0 << " seconds\n";
+    uchar* colored = color_labels(labeled, rows, cols);
+    Mat final = create_output_mat(colored, rows, cols);
+    imwrite("./black-white.jpg", out);
+    imwrite("./output.jpg", final);
+    delete [] colored;
+    delete_matrix(data, rows);
+    delete_matrix(labeled, rows);
 
-
-    // delete labeled matrix
-    for (int i = 0; i < out.rows; ++i){
-        delete [] data[i];
+    if (show_images){
+        imshow("Input", img);
+        imshow("Intermediary", out);
+        imshow("Output", final);
+        while(waitKey(1) != 27);
+        img.release();
+        out.release();
+        final.release();
     }
-    delete [] data;
-
-
-
-
-
- //  adaptiveThreshold(blur, out, 255, ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY, 11, 1); // ADAPTIVE_THRESH_GAUSSIAN_C , ADAPTIVE_THRESH_MEAN_C
-
-
-
-//    adaptiveThreshold(blur, out, 255, ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY, 11, 1);
-//    double thresh_im = threshold(out, out, 0, 255, CV_THRESH_BINARY + CV_THRESH_OTSU);
-//    thresh = bitwise_or(adapt_thresh_im, thresh_im)
-
-
-
-
-//    imwrite("./gray.jpg", gray);
-//    imwrite("./blur.jpg", blur);
-
-//    imshow("input", img);
-//    imshow("intermediary", gray);
-//    imshow("black-white", out);
-//    waitKey(0);
     return 0;
 }
