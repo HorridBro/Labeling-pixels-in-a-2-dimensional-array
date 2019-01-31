@@ -34,19 +34,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/horrid/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/mihnea/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/horrid/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/mihnea/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array
+CMAKE_SOURCE_DIR = /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug
+CMAKE_BINARY_DIR = /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/output.dir/depend.make
@@ -59,74 +59,76 @@ include CMakeFiles/output.dir/flags.make
 
 CMakeFiles/output.dir/main.cpp.o: CMakeFiles/output.dir/flags.make
 CMakeFiles/output.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/output.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/output.dir/main.cpp.o -c /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/output.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/output.dir/main.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/main.cpp
 
 CMakeFiles/output.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/output.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/main.cpp > CMakeFiles/output.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/main.cpp > CMakeFiles/output.dir/main.cpp.i
 
 CMakeFiles/output.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/output.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/main.cpp -o CMakeFiles/output.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/main.cpp -o CMakeFiles/output.dir/main.cpp.s
+
+CMakeFiles/output.dir/utils.cpp.o: CMakeFiles/output.dir/flags.make
+CMakeFiles/output.dir/utils.cpp.o: ../utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/output.dir/utils.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/output.dir/utils.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/utils.cpp
+
+CMakeFiles/output.dir/utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/output.dir/utils.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/utils.cpp > CMakeFiles/output.dir/utils.cpp.i
+
+CMakeFiles/output.dir/utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/output.dir/utils.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/utils.cpp -o CMakeFiles/output.dir/utils.cpp.s
+
+CMakeFiles/output.dir/union_find.cpp.o: CMakeFiles/output.dir/flags.make
+CMakeFiles/output.dir/union_find.cpp.o: ../union_find.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/output.dir/union_find.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/output.dir/union_find.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/union_find.cpp
+
+CMakeFiles/output.dir/union_find.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/output.dir/union_find.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/union_find.cpp > CMakeFiles/output.dir/union_find.cpp.i
+
+CMakeFiles/output.dir/union_find.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/output.dir/union_find.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/union_find.cpp -o CMakeFiles/output.dir/union_find.cpp.s
 
 # Object files for target output
 output_OBJECTS = \
-"CMakeFiles/output.dir/main.cpp.o"
+"CMakeFiles/output.dir/main.cpp.o" \
+"CMakeFiles/output.dir/utils.cpp.o" \
+"CMakeFiles/output.dir/union_find.cpp.o"
 
 # External object files for target output
 output_EXTERNAL_OBJECTS =
 
 output: CMakeFiles/output.dir/main.cpp.o
+output: CMakeFiles/output.dir/utils.cpp.o
+output: CMakeFiles/output.dir/union_find.cpp.o
 output: CMakeFiles/output.dir/build.make
-output: /usr/local/lib/libopencv_gapi.so.4.0.1
-output: /usr/local/lib/libopencv_stitching.so.4.0.1
-output: /usr/local/lib/libopencv_bgsegm.so.4.0.1
-output: /usr/local/lib/libopencv_img_hash.so.4.0.1
-output: /usr/local/lib/libopencv_videostab.so.4.0.1
-output: /usr/local/lib/libopencv_line_descriptor.so.4.0.1
-output: /usr/local/lib/libopencv_xphoto.so.4.0.1
-output: /usr/local/lib/libopencv_reg.so.4.0.1
-output: /usr/local/lib/libopencv_stereo.so.4.0.1
-output: /usr/local/lib/libopencv_structured_light.so.4.0.1
-output: /usr/local/lib/libopencv_phase_unwrapping.so.4.0.1
-output: /usr/local/lib/libopencv_hfs.so.4.0.1
-output: /usr/local/lib/libopencv_fuzzy.so.4.0.1
-output: /usr/local/lib/libopencv_surface_matching.so.4.0.1
-output: /usr/local/lib/libopencv_rgbd.so.4.0.1
-output: /usr/local/lib/libopencv_dpm.so.4.0.1
-output: /usr/local/lib/libopencv_ccalib.so.4.0.1
-output: /usr/local/lib/libopencv_tracking.so.4.0.1
-output: /usr/local/lib/libopencv_freetype.so.4.0.1
-output: /usr/local/lib/libopencv_saliency.so.4.0.1
-output: /usr/local/lib/libopencv_xobjdetect.so.4.0.1
-output: /usr/local/lib/libopencv_dnn_objdetect.so.4.0.1
-output: /usr/local/lib/libopencv_bioinspired.so.4.0.1
-output: /usr/local/lib/libopencv_aruco.so.4.0.1
-output: /usr/local/lib/libopencv_face.so.4.0.1
-output: /usr/local/lib/libopencv_superres.so.4.0.1
-output: /usr/local/lib/libopencv_xfeatures2d.so.4.0.1
-output: /usr/local/lib/libopencv_shape.so.4.0.1
-output: /usr/local/lib/libopencv_datasets.so.4.0.1
-output: /usr/local/lib/libopencv_plot.so.4.0.1
-output: /usr/local/lib/libopencv_text.so.4.0.1
-output: /usr/local/lib/libopencv_ml.so.4.0.1
-output: /usr/local/lib/libopencv_dnn.so.4.0.1
-output: /usr/local/lib/libopencv_objdetect.so.4.0.1
-output: /usr/local/lib/libopencv_photo.so.4.0.1
-output: /usr/local/lib/libopencv_optflow.so.4.0.1
-output: /usr/local/lib/libopencv_video.so.4.0.1
-output: /usr/local/lib/libopencv_ximgproc.so.4.0.1
-output: /usr/local/lib/libopencv_calib3d.so.4.0.1
-output: /usr/local/lib/libopencv_features2d.so.4.0.1
-output: /usr/local/lib/libopencv_flann.so.4.0.1
-output: /usr/local/lib/libopencv_highgui.so.4.0.1
-output: /usr/local/lib/libopencv_videoio.so.4.0.1
-output: /usr/local/lib/libopencv_imgcodecs.so.4.0.1
-output: /usr/local/lib/libopencv_imgproc.so.4.0.1
-output: /usr/local/lib/libopencv_core.so.4.0.1
+output: /usr/local/lib/libopencv_superres.so.3.4.2
+output: /usr/local/lib/libopencv_shape.so.3.4.2
+output: /usr/local/lib/libopencv_stitching.so.3.4.2
+output: /usr/local/lib/libopencv_viz.so.3.4.2
+output: /usr/local/lib/libopencv_ml.so.3.4.2
+output: /usr/local/lib/libopencv_videostab.so.3.4.2
+output: /usr/local/lib/libopencv_calib3d.so.3.4.2
+output: /usr/local/lib/libopencv_video.so.3.4.2
+output: /usr/local/lib/libopencv_dnn.so.3.4.2
+output: /usr/local/lib/libopencv_photo.so.3.4.2
+output: /usr/local/lib/libopencv_objdetect.so.3.4.2
+output: /usr/local/lib/libopencv_features2d.so.3.4.2
+output: /usr/local/lib/libopencv_highgui.so.3.4.2
+output: /usr/local/lib/libopencv_videoio.so.3.4.2
+output: /usr/local/lib/libopencv_flann.so.3.4.2
+output: /usr/local/lib/libopencv_imgcodecs.so.3.4.2
+output: /usr/local/lib/libopencv_imgproc.so.3.4.2
+output: /usr/local/lib/libopencv_core.so.3.4.2
 output: CMakeFiles/output.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable output"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable output"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/output.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -139,6 +141,6 @@ CMakeFiles/output.dir/clean:
 .PHONY : CMakeFiles/output.dir/clean
 
 CMakeFiles/output.dir/depend:
-	cd /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles/output.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles/output.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/output.dir/depend
 

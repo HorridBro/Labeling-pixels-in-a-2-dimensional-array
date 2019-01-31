@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/output.dir/main.cpp.o"
+  "CMakeFiles/output.dir/utils.cpp.o"
+  "CMakeFiles/output.dir/union_find.cpp.o"
   "output.pdb"
   "output"
 )

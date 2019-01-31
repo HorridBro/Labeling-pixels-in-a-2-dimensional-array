@@ -39,38 +39,27 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/horrid/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/mihnea/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/horrid/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/mihnea/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array
+CMAKE_SOURCE_DIR = /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug
+CMAKE_BINARY_DIR = /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/horrid/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/horrid/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/mihnea/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,11 +67,22 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/mihnea/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,44 +111,125 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named output
+# Target rules for targets named serial
 
 # Build rule for target.
-output: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 output
-.PHONY : output
+serial: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 serial
+.PHONY : serial
 
 # fast build rule for target.
-output/fast:
-	$(MAKE) -f CMakeFiles/output.dir/build.make CMakeFiles/output.dir/build
-.PHONY : output/fast
+serial/fast:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/build
+.PHONY : serial/fast
 
-main.o: main.cpp.o
+serial.o: serial.cpp.o
 
-.PHONY : main.o
+.PHONY : serial.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/output.dir/build.make CMakeFiles/output.dir/main.cpp.o
-.PHONY : main.cpp.o
+serial.cpp.o:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/serial.cpp.o
+.PHONY : serial.cpp.o
 
-main.i: main.cpp.i
+serial.i: serial.cpp.i
 
-.PHONY : main.i
+.PHONY : serial.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/output.dir/build.make CMakeFiles/output.dir/main.cpp.i
-.PHONY : main.cpp.i
+serial.cpp.i:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/serial.cpp.i
+.PHONY : serial.cpp.i
 
-main.s: main.cpp.s
+serial.s: serial.cpp.s
 
-.PHONY : main.s
+.PHONY : serial.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/output.dir/build.make CMakeFiles/output.dir/main.cpp.s
-.PHONY : main.cpp.s
+serial.cpp.s:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/serial.cpp.s
+.PHONY : serial.cpp.s
+
+src/image.o: src/image.cpp.o
+
+.PHONY : src/image.o
+
+# target to build an object file
+src/image.cpp.o:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/image.cpp.o
+.PHONY : src/image.cpp.o
+
+src/image.i: src/image.cpp.i
+
+.PHONY : src/image.i
+
+# target to preprocess a source file
+src/image.cpp.i:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/image.cpp.i
+.PHONY : src/image.cpp.i
+
+src/image.s: src/image.cpp.s
+
+.PHONY : src/image.s
+
+# target to generate assembly for a file
+src/image.cpp.s:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/image.cpp.s
+.PHONY : src/image.cpp.s
+
+src/union_find.o: src/union_find.cpp.o
+
+.PHONY : src/union_find.o
+
+# target to build an object file
+src/union_find.cpp.o:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/union_find.cpp.o
+.PHONY : src/union_find.cpp.o
+
+src/union_find.i: src/union_find.cpp.i
+
+.PHONY : src/union_find.i
+
+# target to preprocess a source file
+src/union_find.cpp.i:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/union_find.cpp.i
+.PHONY : src/union_find.cpp.i
+
+src/union_find.s: src/union_find.cpp.s
+
+.PHONY : src/union_find.s
+
+# target to generate assembly for a file
+src/union_find.cpp.s:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/union_find.cpp.s
+.PHONY : src/union_find.cpp.s
+
+src/utils.o: src/utils.cpp.o
+
+.PHONY : src/utils.o
+
+# target to build an object file
+src/utils.cpp.o:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/utils.cpp.o
+.PHONY : src/utils.cpp.o
+
+src/utils.i: src/utils.cpp.i
+
+.PHONY : src/utils.i
+
+# target to preprocess a source file
+src/utils.cpp.i:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/utils.cpp.i
+.PHONY : src/utils.cpp.i
+
+src/utils.s: src/utils.cpp.s
+
+.PHONY : src/utils.s
+
+# target to generate assembly for a file
+src/utils.cpp.s:
+	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/utils.cpp.s
+.PHONY : src/utils.cpp.s
 
 # Help Target
 help:
@@ -156,12 +237,21 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... output"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... rebuild_cache"
+	@echo "... serial"
+	@echo "... serial.o"
+	@echo "... serial.i"
+	@echo "... serial.s"
+	@echo "... src/image.o"
+	@echo "... src/image.i"
+	@echo "... src/image.s"
+	@echo "... src/union_find.o"
+	@echo "... src/union_find.i"
+	@echo "... src/union_find.s"
+	@echo "... src/utils.o"
+	@echo "... src/utils.i"
+	@echo "... src/utils.s"
 .PHONY : help
 
 

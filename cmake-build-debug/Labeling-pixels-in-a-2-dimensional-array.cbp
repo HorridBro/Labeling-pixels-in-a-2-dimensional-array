@@ -5,104 +5,125 @@
 		<Option title="Labeling-pixels-in-a-2-dimensional-array"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\opencv4\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\OpenCV\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
+				<Option working_dir="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="rebuild_cache">
-				<Option working_dir="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
+				<Option working_dir="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="output">
-				<Option output="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/output" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="serial">
+				<Option output="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/serial" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/include/opencv"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
-					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
 					<Add directory="/usr/include/x86_64-linux-gnu"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 output"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 serial"/>
+					<CompileFile command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="output/fast">
-				<Option output="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/output" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
+			<Target title="serial/fast">
+				<Option output="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/serial" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/include/opencv"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
-					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
 					<Add directory="/usr/include/x86_64-linux-gnu"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 output/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 serial/fast"/>
+					<CompileFile command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j36 -f &quot;/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/main.cpp">
-			<Option target="output"/>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/image.h">
+			<Option target="serial"/>
 		</Unit>
-		<Unit filename="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/CMakeLists.txt">
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h">
+			<Option target="serial"/>
+		</Unit>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/union_find.h">
+			<Option target="serial"/>
+		</Unit>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h">
+			<Option target="serial"/>
+		</Unit>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/serial.cpp">
+			<Option target="serial"/>
+		</Unit>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/image.cpp">
+			<Option target="serial"/>
+		</Unit>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/union_find.cpp">
+			<Option target="serial"/>
+		</Unit>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/utils.cpp">
+			<Option target="serial"/>
+		</Unit>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/../../../../../usr/local/lib/cmake/opencv4/OpenCVConfig-version.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\opencv4\"/>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/../../../../usr/local/share/OpenCV/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\"/>
 		</Unit>
-		<Unit filename="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/../../../../../usr/local/lib/cmake/opencv4/OpenCVConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\opencv4\"/>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/../../../../usr/local/share/OpenCV/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\"/>
 		</Unit>
-		<Unit filename="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/../../../../../usr/local/lib/cmake/opencv4/OpenCVModules-release.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\opencv4\"/>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/../../../../usr/local/share/OpenCV/OpenCVModules-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\"/>
 		</Unit>
-		<Unit filename="/home/horrid/CLionProjects/ParallelConcurrentProgramming/Labeling-pixels-in-a-2-dimensional-array/../../../../../usr/local/lib/cmake/opencv4/OpenCVModules.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\opencv4\"/>
+		<Unit filename="/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/../../../../usr/local/share/OpenCV/OpenCVModules.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>
