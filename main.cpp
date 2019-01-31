@@ -1,4 +1,5 @@
-// g++ main.cpp -o output `pkg-config --cflags --libs opencv`
+//mpirun  -np 1 cmake-build-debug/main images/gray/aloi.jpg -show_images //serial
+//mpirun  -np 8 cmake-build-debug/main images/gray/aloi.jpg -show_images //parallel
 
 #include "include/includes.h"
 #include "include/utils.h"
@@ -66,12 +67,11 @@ void connected_component_labeling_parallel(int** a, int rows, int cols){
 int master_main(int argc, char* argv[]){
     MPI_Comm_size (MPI_COMM_WORLD, &numprocs);
     int show_images = 0,  method = 0;
-    string met;
+    string run_type;
     void (*connected_component_labeling)(int**, int, int);
     string usage = "Usage:\t" + string(argv[0]) +" image_path [-hsv] [-show_images]\n";
     if (argc < 2){
         cout << "Error, invalid args! " << usage;
-        MPI_Finalize ();
         return 1;
     }
     for(int i = 2; i < argc; ++i){
@@ -84,17 +84,16 @@ int master_main(int argc, char* argv[]){
         }
         else if(ar == "-h"){
             cout << usage;
-            MPI_Finalize ();
             return 0;
         }
     }
     if(numprocs > 1){
         connected_component_labeling = connected_component_labeling_parallel;
-        met = "Parallel";
+        run_type = "Parallel";
     }
-    else{
+    else {
         connected_component_labeling = connected_component_labeling_serial;
-        met = "Serial";
+        run_type = "Serial";
     }
     Mat img = imread(argv[1]);
     Mat out = transform_image_2_binary(img, method);
@@ -104,7 +103,7 @@ int master_main(int argc, char* argv[]){
     connected_component_labeling(data, rows, cols);
     high_resolution_clock::time_point stop = high_resolution_clock::now();
     float duration = duration_cast<chrono::duration<float>>( stop - start ).count();
-    cout << met << " Connected Component Labeling Duration = " << duration << " seconds\n";
+    cout << run_type << " Connected Component Labeling Duration = " << duration << " seconds\n";
     uchar* colored = color_labels(data, rows, cols);
     Mat final = create_output_mat(colored, rows, cols);
     imwrite("./black-white.jpg", out);
@@ -113,28 +112,35 @@ int master_main(int argc, char* argv[]){
         imshow("Input", img);
         imshow("Intermediary", out);
         imshow("Output", final);
-        while(waitKey(1) != 27);
+        while(waitKey(1) != 27); //Esc key
         img.release();
         out.release();
         final.release();
     }
     delete [] colored;
     delete_matrix(data, rows);
-    MPI_Finalize ();
+    return 0;
+}
+
+
+int slave_main(int rank){
+
+
+
     return 0;
 }
 
 
 int main(int argc, char* argv[]) {
-    int my_rank = 0;
+    int my_rank = 0, ret_code = 0;
     MPI_Init (&argc, &argv);
     MPI_Comm_rank (MPI_COMM_WORLD, &my_rank);
     if (my_rank == 0){
-        return master_main(argc, argv);
+        ret_code = master_main(argc, argv);
+    } else{
+        ret_code = slave_main(my_rank);
     }
 
-
-
     MPI_Finalize ();
-    return 0;
+    return ret_code;
 }

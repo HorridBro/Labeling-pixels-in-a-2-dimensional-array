@@ -1,11 +1,11 @@
 #include "../include/utils.h"
 
 // check all 8 neighbours
-//vector<pair<int, int>> directions {
-//                                    {-1, -1}, {-1, 0}, {-1, 1},
-//                                    {1, 1}, {1, 0}, {1, -1},
-//                                    {0, -1}, {0, 1}
-//                                  };
+std::vector<std::pair<int, int>> all_directions {
+                                        {-1, -1}, {-1, 0}, {-1, 1},
+                                        {1, 1}, {1, 0}, {1, -1},
+                                        {0, -1}, {0, 1}
+                                      };
 
 //check only w, n-w, n ,e neighbours
 
@@ -82,5 +82,3 @@ void delete_matrix(int** data, int rows){
     }
     delete [] data;
 }
-
-

@@ -7,6 +7,8 @@ CMakeFiles/main.dir/main.cpp.o
  /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/union_find.h
  /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h
  /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/main.cpp
+ /usr/local/include/mpi.h
+ /usr/local/include/mpi_portable_platform.h
  /usr/local/include/opencv/cxcore.h
  /usr/local/include/opencv2/calib3d.hpp
  /usr/local/include/opencv2/calib3d/calib3d_c.h

@@ -6,6 +6,8 @@ CMakeFiles/main.dir/main.cpp.o: ../include/includes.h
 CMakeFiles/main.dir/main.cpp.o: ../include/union_find.h
 CMakeFiles/main.dir/main.cpp.o: ../include/utils.h
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
+CMakeFiles/main.dir/main.cpp.o: /usr/local/include/mpi.h
+CMakeFiles/main.dir/main.cpp.o: /usr/local/include/mpi_portable_platform.h
 CMakeFiles/main.dir/main.cpp.o: /usr/local/include/opencv/cxcore.h
 CMakeFiles/main.dir/main.cpp.o: /usr/local/include/opencv2/calib3d.hpp
 CMakeFiles/main.dir/main.cpp.o: /usr/local/include/opencv2/calib3d/calib3d_c.h

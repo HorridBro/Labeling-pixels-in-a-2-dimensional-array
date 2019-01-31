@@ -212,7 +212,7 @@ Labeling-pixels-in-a-2-dimensional-array_BINARY_DIR:STATIC=/home/mihnea/CLionPro
 Labeling-pixels-in-a-2-dimensional-array_SOURCE_DIR:STATIC=/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array
 
 //Executable for running MPI programs.
-MPIEXEC_EXECUTABLE:FILEPATH=/usr/bin/mpiexec
+MPIEXEC_EXECUTABLE:FILEPATH=/usr/local/bin/mpiexec
 
 //Maximum number of processors available to run MPI applications.
 MPIEXEC_MAX_NUMPROCS:STRING=18
@@ -229,10 +229,10 @@ MPIEXEC_POSTFLAGS:STRING=
 MPIEXEC_PREFLAGS:STRING=
 
 //MPI CXX additional include directories
-MPI_CXX_ADDITIONAL_INCLUDE_DIRS:STRING=/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent;/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent/include;/usr/lib/openmpi/include/openmpi
+MPI_CXX_ADDITIONAL_INCLUDE_DIRS:STRING=
 
 //MPI compiler for CXX
-MPI_CXX_COMPILER:FILEPATH=/usr/bin/mpicxx
+MPI_CXX_COMPILER:FILEPATH=/usr/local/bin/mpicxx
 
 //MPI CXX compilation definitions
 MPI_CXX_COMPILE_DEFINITIONS:STRING=
@@ -241,22 +241,22 @@ MPI_CXX_COMPILE_DEFINITIONS:STRING=
 MPI_CXX_COMPILE_OPTIONS:STRING=-pthread
 
 //Path to a file.
-MPI_CXX_HEADER_DIR:PATH=/usr/lib/openmpi/include
+MPI_CXX_HEADER_DIR:PATH=/usr/local/include
 
 //MPI CXX libraries to link against
-MPI_CXX_LIB_NAMES:STRING=mpi_cxx;mpi
+MPI_CXX_LIB_NAMES:STRING=mpi
 
 //MPI CXX linker flags
-MPI_CXX_LINK_FLAGS:STRING=-Wl,-rpath -Wl,/usr/lib/openmpi/lib -Wl,--enable-new-dtags -pthread
+MPI_CXX_LINK_FLAGS:STRING=-Wl,-rpath -Wl,/usr/local/lib -Wl,--enable-new-dtags -pthread
 
 //If true, the MPI-2 C++ bindings are disabled using definitions.
 MPI_CXX_SKIP_MPICXX:BOOL=FALSE
 
 //MPI C additional include directories
-MPI_C_ADDITIONAL_INCLUDE_DIRS:STRING=/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent;/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent/include;/usr/lib/openmpi/include/openmpi
+MPI_C_ADDITIONAL_INCLUDE_DIRS:STRING=
 
 //MPI compiler for C
-MPI_C_COMPILER:FILEPATH=/usr/bin/mpicc
+MPI_C_COMPILER:FILEPATH=/usr/local/bin/mpicc
 
 //MPI C compilation definitions
 MPI_C_COMPILE_DEFINITIONS:STRING=
@@ -265,19 +265,16 @@ MPI_C_COMPILE_DEFINITIONS:STRING=
 MPI_C_COMPILE_OPTIONS:STRING=-pthread
 
 //Path to a file.
-MPI_C_HEADER_DIR:PATH=/usr/lib/openmpi/include
+MPI_C_HEADER_DIR:PATH=/usr/local/include
 
 //MPI C libraries to link against
 MPI_C_LIB_NAMES:STRING=mpi
 
 //MPI C linker flags
-MPI_C_LINK_FLAGS:STRING=-Wl,-rpath -Wl,/usr/lib/openmpi/lib -Wl,--enable-new-dtags -pthread
+MPI_C_LINK_FLAGS:STRING=-Wl,-rpath -Wl,/usr/local/lib -Wl,--enable-new-dtags -pthread
 
 //Location of the mpi library for MPI
-MPI_mpi_LIBRARY:FILEPATH=/usr/lib/openmpi/lib/libmpi.so
-
-//Location of the mpi_cxx library for MPI
-MPI_mpi_cxx_LIBRARY:FILEPATH=/usr/lib/openmpi/lib/libmpi_cxx.so
+MPI_mpi_LIBRARY:FILEPATH=/usr/local/lib/libmpi.so
 
 //The directory containing a CMake configuration file for OpenCV.
 OpenCV_DIR:PATH=/usr/local/share/OpenCV
@@ -439,11 +436,11 @@ CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding MPI
-FIND_PACKAGE_MESSAGE_DETAILS_MPI:INTERNAL=[TRUE][TRUE][c ][v3.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_MPI:INTERNAL=[TRUE][TRUE][c ][v3.1()]
 //Details about finding MPI_C
-FIND_PACKAGE_MESSAGE_DETAILS_MPI_C:INTERNAL=[/usr/lib/openmpi/lib/libmpi.so][mpi][/usr/lib/openmpi/include][TRUE][v3.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_MPI_C:INTERNAL=[/usr/local/lib/libmpi.so][mpi][/usr/local/include][TRUE][v3.1()]
 //Details about finding MPI_CXX
-FIND_PACKAGE_MESSAGE_DETAILS_MPI_CXX:INTERNAL=[/usr/lib/openmpi/lib/libmpi_cxx.so][/usr/lib/openmpi/lib/libmpi.so][mpi_cxx;mpi][/usr/lib/openmpi/include][TRUE][v3.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_MPI_CXX:INTERNAL=[/usr/local/lib/libmpi.so][mpi][/usr/local/include][TRUE][v3.1()]
 //Details about finding OpenCV
 FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[/usr/local][v3.4.2()]
 //ADVANCED property for variable: MPIEXEC_EXECUTABLE
@@ -494,8 +491,6 @@ MPI_RESULT_CXX_test_mpi_normal:INTERNAL=TRUE
 MPI_RESULT_C_test_mpi_normal:INTERNAL=TRUE
 //ADVANCED property for variable: MPI_mpi_LIBRARY
 MPI_mpi_LIBRARY-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: MPI_mpi_cxx_LIBRARY
-MPI_mpi_cxx_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_getconf
 ProcessorCount_cmd_getconf-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_sysctl

@@ -124,8 +124,7 @@ main: CMakeFiles/main.dir/src/image.cpp.o
 main: CMakeFiles/main.dir/src/union_find.cpp.o
 main: CMakeFiles/main.dir/src/utils.cpp.o
 main: CMakeFiles/main.dir/build.make
-main: /usr/lib/openmpi/lib/libmpi_cxx.so
-main: /usr/lib/openmpi/lib/libmpi.so
+main: /usr/local/lib/libmpi.so
 main: /usr/local/lib/libopencv_superres.so.3.4.2
 main: /usr/local/lib/libopencv_shape.so.3.4.2
 main: /usr/local/lib/libopencv_stitching.so.3.4.2
