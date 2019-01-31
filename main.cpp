@@ -168,7 +168,7 @@ int** convert_mat(const Mat& mat){
                 data[row][col] = 0;
             }
             else {
-                data[row][col] = 1;
+                data[row][col] = row* mat.rows + col + 1;
             }
         }
     }
@@ -176,13 +176,8 @@ int** convert_mat(const Mat& mat){
 }
 
 
-int** connected_component_labeling_serial(int** a, int rows, int cols){
+void connected_component_labeling_serial(int** a, int rows, int cols){
     unordered_map<int, pair<int, int>> parent;
-    int** labeled = new int*[rows];
-    for (int i = 0; i < rows; ++i){
-        labeled[i] = new int[cols];
-        fill(labeled[i], labeled[i] + cols, 0);
-    }
     for (int i = 0; i <  rows; ++i){
         for (int j = 0; j < cols; ++j){
             if(!a[i][j]){
@@ -194,7 +189,7 @@ int** connected_component_labeling_serial(int** a, int rows, int cols){
                 int ncol = j + d.second;
                 int nrow = i + d.first;
                 if ((ncol >= 0 && ncol < cols) && (nrow >= 0 && nrow < rows)){
-                    int neighbour = labeled[nrow][ncol];
+                    int neighbour = a[nrow][ncol];
                     if(neighbour){
                         neighbours.push_back(neighbour);
                         m = min(m, neighbour);
@@ -202,11 +197,10 @@ int** connected_component_labeling_serial(int** a, int rows, int cols){
                 }
             }
             if(neighbours.empty()){
-                labeled[i][j] = i * cols + j + 1;
-                make_set(parent, labeled[i][j]);
+                make_set(parent, a[i][j]);
             }
             else {
-                labeled[i][j] = m;
+                a[i][j] = m;
                 for (int n : neighbours){
                     union_sets(parent, m, find_root(parent, n));
                 }
@@ -218,10 +212,9 @@ int** connected_component_labeling_serial(int** a, int rows, int cols){
             if(!a[i][j]){
                 continue;
             }
-            labeled[i][j] = find_root(parent, labeled[i][j]);
+            a[i][j] = find_root(parent, a[i][j]);
         }
     }
-    return labeled;
 }
 
 
@@ -295,18 +288,14 @@ int main(int argc, char* argv[]) {
     int rows = out.rows , cols = out.cols;
     int** data = convert_mat(out);
     high_resolution_clock::time_point start = high_resolution_clock::now();
-    int** labeled = connected_component_labeling_serial(data, rows, cols);
+    connected_component_labeling_serial(data, rows, cols);
     high_resolution_clock::time_point stop = high_resolution_clock::now();
     float duration = duration_cast<chrono::duration<float>>( stop - start ).count();
     cout << "Connected Component Labeling Duration = " << duration << " seconds\n";
-    uchar* colored = color_labels(labeled, rows, cols);
+    uchar* colored = color_labels(data, rows, cols);
     Mat final = create_output_mat(colored, rows, cols);
     imwrite("./black-white.jpg", out);
     imwrite("./output.jpg", final);
-    delete [] colored;
-    delete_matrix(data, rows);
-    delete_matrix(labeled, rows);
-
     if (show_images){
         imshow("Input", img);
         imshow("Intermediary", out);
@@ -316,5 +305,7 @@ int main(int argc, char* argv[]) {
         out.release();
         final.release();
     }
+    delete [] colored;
+    delete_matrix(data, rows);
     return 0;
 }
