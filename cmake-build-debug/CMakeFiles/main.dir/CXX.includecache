@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/includes.h
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/image.h
+includes.h
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
+
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
 vector
 -
 unordered_map
@@ -22,29 +26,25 @@ string
 opencv2/opencv.hpp
 -
 
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/union_find.h
+includes.h
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
+
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h
+includes.h
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
+
 /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/main.cpp
-includes.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/includes.h
-utils.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/utils.h
-union_find.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/union_find.h
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/union_find.cpp
-union_find.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/union_find.h
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/union_find.h
-includes.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/includes.h
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/utils.cpp
-utils.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/utils.h
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/utils.h
-includes.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/includes.h
+include/includes.h
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
+include/utils.h
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h
+include/union_find.h
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/union_find.h
+include/image.h
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/image.h
+mpi.h
+-
 
 /usr/local/include/opencv/cxcore.h
 opencv2/core/core_c.h

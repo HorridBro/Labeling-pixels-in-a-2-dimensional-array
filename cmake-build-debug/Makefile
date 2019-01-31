@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named main
+
+# Build rule for target.
+main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main
+.PHONY : main
+
+# fast build rule for target.
+main/fast:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
+
+#=============================================================================
 # Target rules for targets named serial
 
 # Build rule for target.
@@ -122,6 +135,33 @@ serial: cmake_check_build_system
 serial/fast:
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/build
 .PHONY : serial/fast
+
+main.o: main.cpp.o
+
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 serial.o: serial.cpp.o
 
@@ -156,6 +196,7 @@ src/image.o: src/image.cpp.o
 
 # target to build an object file
 src/image.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/image.cpp.o
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/image.cpp.o
 .PHONY : src/image.cpp.o
 
@@ -165,6 +206,7 @@ src/image.i: src/image.cpp.i
 
 # target to preprocess a source file
 src/image.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/image.cpp.i
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/image.cpp.i
 .PHONY : src/image.cpp.i
 
@@ -174,6 +216,7 @@ src/image.s: src/image.cpp.s
 
 # target to generate assembly for a file
 src/image.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/image.cpp.s
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/image.cpp.s
 .PHONY : src/image.cpp.s
 
@@ -183,6 +226,7 @@ src/union_find.o: src/union_find.cpp.o
 
 # target to build an object file
 src/union_find.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/union_find.cpp.o
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/union_find.cpp.o
 .PHONY : src/union_find.cpp.o
 
@@ -192,6 +236,7 @@ src/union_find.i: src/union_find.cpp.i
 
 # target to preprocess a source file
 src/union_find.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/union_find.cpp.i
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/union_find.cpp.i
 .PHONY : src/union_find.cpp.i
 
@@ -201,6 +246,7 @@ src/union_find.s: src/union_find.cpp.s
 
 # target to generate assembly for a file
 src/union_find.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/union_find.cpp.s
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/union_find.cpp.s
 .PHONY : src/union_find.cpp.s
 
@@ -210,6 +256,7 @@ src/utils.o: src/utils.cpp.o
 
 # target to build an object file
 src/utils.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/utils.cpp.o
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/utils.cpp.o
 .PHONY : src/utils.cpp.o
 
@@ -219,6 +266,7 @@ src/utils.i: src/utils.cpp.i
 
 # target to preprocess a source file
 src/utils.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/utils.cpp.i
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/utils.cpp.i
 .PHONY : src/utils.cpp.i
 
@@ -228,6 +276,7 @@ src/utils.s: src/utils.cpp.s
 
 # target to generate assembly for a file
 src/utils.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/utils.cpp.s
 	$(MAKE) -f CMakeFiles/serial.dir/build.make CMakeFiles/serial.dir/src/utils.cpp.s
 .PHONY : src/utils.cpp.s
 
@@ -238,8 +287,12 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... main"
 	@echo "... rebuild_cache"
 	@echo "... serial"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 	@echo "... serial.o"
 	@echo "... serial.i"
 	@echo "... serial.s"

@@ -34,7 +34,7 @@ includes.h
 includes.h
 /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
 
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/serial.cpp
+/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/parallel.cpp
 include/includes.h
 /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
 include/utils.h
@@ -43,20 +43,8 @@ include/union_find.h
 /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/union_find.h
 include/image.h
 /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/image.h
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/image.cpp
-../include/image.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/image.h
-../include/utils.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/union_find.cpp
-../include/union_find.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/union_find.h
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/utils.cpp
-../include/utils.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h
+mpi.h
+-
 
 /usr/local/include/opencv/cxcore.h
 opencv2/core/core_c.h

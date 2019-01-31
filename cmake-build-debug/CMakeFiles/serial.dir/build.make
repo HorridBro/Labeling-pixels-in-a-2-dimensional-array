@@ -60,54 +60,54 @@ include CMakeFiles/serial.dir/flags.make
 CMakeFiles/serial.dir/serial.cpp.o: CMakeFiles/serial.dir/flags.make
 CMakeFiles/serial.dir/serial.cpp.o: ../serial.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/serial.dir/serial.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial.dir/serial.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/serial.cpp
+	mpicxx  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial.dir/serial.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/serial.cpp
 
 CMakeFiles/serial.dir/serial.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/serial.dir/serial.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/serial.cpp > CMakeFiles/serial.dir/serial.cpp.i
+	mpicxx $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/serial.cpp > CMakeFiles/serial.dir/serial.cpp.i
 
 CMakeFiles/serial.dir/serial.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/serial.dir/serial.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/serial.cpp -o CMakeFiles/serial.dir/serial.cpp.s
+	mpicxx $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/serial.cpp -o CMakeFiles/serial.dir/serial.cpp.s
 
 CMakeFiles/serial.dir/src/image.cpp.o: CMakeFiles/serial.dir/flags.make
 CMakeFiles/serial.dir/src/image.cpp.o: ../src/image.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/serial.dir/src/image.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial.dir/src/image.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/image.cpp
+	mpicxx  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial.dir/src/image.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/image.cpp
 
 CMakeFiles/serial.dir/src/image.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/serial.dir/src/image.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/image.cpp > CMakeFiles/serial.dir/src/image.cpp.i
+	mpicxx $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/image.cpp > CMakeFiles/serial.dir/src/image.cpp.i
 
 CMakeFiles/serial.dir/src/image.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/serial.dir/src/image.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/image.cpp -o CMakeFiles/serial.dir/src/image.cpp.s
+	mpicxx $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/image.cpp -o CMakeFiles/serial.dir/src/image.cpp.s
 
 CMakeFiles/serial.dir/src/union_find.cpp.o: CMakeFiles/serial.dir/flags.make
 CMakeFiles/serial.dir/src/union_find.cpp.o: ../src/union_find.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/serial.dir/src/union_find.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial.dir/src/union_find.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/union_find.cpp
+	mpicxx  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial.dir/src/union_find.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/union_find.cpp
 
 CMakeFiles/serial.dir/src/union_find.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/serial.dir/src/union_find.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/union_find.cpp > CMakeFiles/serial.dir/src/union_find.cpp.i
+	mpicxx $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/union_find.cpp > CMakeFiles/serial.dir/src/union_find.cpp.i
 
 CMakeFiles/serial.dir/src/union_find.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/serial.dir/src/union_find.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/union_find.cpp -o CMakeFiles/serial.dir/src/union_find.cpp.s
+	mpicxx $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/union_find.cpp -o CMakeFiles/serial.dir/src/union_find.cpp.s
 
 CMakeFiles/serial.dir/src/utils.cpp.o: CMakeFiles/serial.dir/flags.make
 CMakeFiles/serial.dir/src/utils.cpp.o: ../src/utils.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/serial.dir/src/utils.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial.dir/src/utils.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/utils.cpp
+	mpicxx  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial.dir/src/utils.cpp.o -c /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/utils.cpp
 
 CMakeFiles/serial.dir/src/utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/serial.dir/src/utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/utils.cpp > CMakeFiles/serial.dir/src/utils.cpp.i
+	mpicxx $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/utils.cpp > CMakeFiles/serial.dir/src/utils.cpp.i
 
 CMakeFiles/serial.dir/src/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/serial.dir/src/utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/utils.cpp -o CMakeFiles/serial.dir/src/utils.cpp.s
+	mpicxx $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/utils.cpp -o CMakeFiles/serial.dir/src/utils.cpp.s
 
 # Object files for target serial
 serial_OBJECTS = \
