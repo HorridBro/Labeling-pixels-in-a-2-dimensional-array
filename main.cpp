@@ -17,6 +17,7 @@ static int dest = 1;
 static int TILE_SIZE = 64;
 const int LABEL_TAG = 1;
 const int END_TAG = 2;
+unordered_map<int, pair<int, int>> global_parent;
 
 
 void connected_component_labeling_serial(int** a, int rows, int cols){
@@ -64,10 +65,12 @@ void connected_component_labeling_serial(int** a, int rows, int cols){
 void connected_component_labeling_parallel_util(int** a, int rows, int cols, pair<int, int> start, pair<int, int> stop){
     int size = rows * cols;
     if(size <= TILE_SIZE){
-        int* msg_to_send = new int[size + 2];
-        int *temp_array = msg_to_send + 2;
+        int* msg_to_send = new int[size + 3];
+        int *temp_array = msg_to_send + 3;
         msg_to_send[0] = rows;
         msg_to_send[1] = cols;
+        msg_to_send[2] = start.first;
+        msg_to_send[3] = start.second;
         for(int i = start.first, ii = 0; i <= stop.first; i++, ii++){
             for(int j = start.first, jj = 0; j <= stop.second; j++, jj++){
                 temp_array[ii * rows + jj] = a[i][j];
@@ -79,11 +82,41 @@ void connected_component_labeling_parallel_util(int** a, int rows, int cols, pai
     else{
         int new_rows = rows / 4;
         int new_cols = cols / 4;
-        connected_component_labeling_parallel_util(a, new_rows, new_cols, start , {start.first + new_rows, start.second + new_cols});
-        connected_component_labeling_parallel_util(a, new_rows, new_cols, {start.first, start.second + new_cols + 1}, {start.first + new_rows, start.second + 2 * new_cols + 1});
-        connected_component_labeling_parallel_util(a, new_rows, new_cols, {start.first + new_rows + 1, start.second}, {start.first + 2 * new_rows, start.second + new_cols});
-        connected_component_labeling_parallel_util(a, new_rows, new_cols, {start.first + new_rows + 1, start.second + new_cols + 1} , stop);
-
+        int rows_left = new_rows;
+        int cols_left = new_cols;
+        int mod_rows = rows % 4, mod_cols = cols % 4;
+        if (mod_rows){
+            rows_left += rows % 4;
+        }
+        if (mod_cols){
+            cols_left += cols % 4;
+        }
+        connected_component_labeling_parallel_util(a, new_rows + 1, new_cols + 1, start , {start.first + new_rows, start.second + new_cols});
+        connected_component_labeling_parallel_util(a, new_rows + 1, cols_left + 1, {start.first, start.second + new_cols + 1}, {start.first + new_rows, start.second + new_cols + cols_left + 1});
+        connected_component_labeling_parallel_util(a, rows_left + 1, new_cols + 1, {start.first + new_rows + 1, start.second}, {start.first + new_rows + rows_left, start.second + new_cols});
+        connected_component_labeling_parallel_util(a, rows_left + 1, cols_left + 1, {start.first + new_rows + 1, start.second + new_cols + 1} , stop);
+        if(size / 4 <= TILE_SIZE){
+            int recv_size = 3 + TILE_SIZE * 4;
+            int* tiles = new int[recv_size *4];
+            for(int i = 0 ; i < 4; ++i){
+                int tile [recv_size];
+                MPI_Recv(tile, recv_size, MPI_INT, MPI_ANY_SOURCE, LABEL_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                int * tl = tile + 3;
+                if(tile[0] == start.first){
+                    if(tile[1] == start.second){
+                        copy(tl, tl+ recv_size, tiles);
+                    } else{
+                        copy(tl, tl + recv_size, tiles + recv_size);
+                    }
+                } else{
+                    if(tile[1] == start.second){
+                        copy(tl, tl + recv_size, tiles + 2 * recv_size);
+                    } else{
+                        copy(tl, tl + recv_size, tiles + 3 * recv_size);
+                    }
+                }
+            }
+        }
     }
 
 
@@ -162,10 +195,8 @@ int master_main(int argc, char* argv[]){
 }
 
 
-int* solve_tile(int* a, int rows, int cols){
-    int sz = rows * cols;
-    int *parent = new int[sz * 2];
-    int *size = parent + sz;
+unordered_map<int, pair<int, int>> solve_tile(int* a, int rows, int cols){
+    unordered_map<int, pair<int, int>> parent;
     for (int i = 0; i <  rows; ++i){
         for (int j = 0; j < cols; ++j){
             int idx = i * rows + j;
@@ -186,12 +217,12 @@ int* solve_tile(int* a, int rows, int cols){
                 }
             }
             if(neighbours.empty()){
-                make_set_tile(parent, size, a[idx]);
+                make_set(parent, a[idx]);
             }
             else {
                 a[idx] = m;
                 for (int n : neighbours){
-                    union_sets_tile(parent, size,  m, find_root_tile(parent, size, n));
+                    union_sets(parent, m, find_root(parent, n));
                 }
             }
         }
@@ -204,19 +235,34 @@ int slave_main(int rank){
     MPI_Probe(0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
     int tag = status.MPI_TAG;
     while(tag != END_TAG){
-        int msg_size = TILE_SIZE + 2;
+        int msg_size = TILE_SIZE + 3;
         int* a = new int[msg_size];
         MPI_Recv(a, msg_size, MPI_INT, 0, tag, MPI_COMM_WORLD, &status); // rows, cols , a[TILE_SIZE]
         int rows = a[0];
         int cols = a[1];
-        int* parent = solve_tile(a + 2, rows, cols);
-        int* msg_to_send = new int[TILE_SIZE * 3];
+        int start_i = a[2];
+        int start_j = a[3];
+        unordered_map<int, pair<int, int>> parent = solve_tile(a + 4, rows, cols);
+        int parent_size = 3 * parent.size();
+        int *par_sz= new int[parent_size];
+        int i = 0;
+        for(auto x : parent){
+            par_sz[i] = x.first;
+            par_sz[i + 1] = x.second.first;
+            par_sz[i + 2] = x.second.second;
+        }
+        int all_size = 3 + TILE_SIZE + 3 * parent_size;
+        int* all = new int[all_size];
+        all[0] = start_i;
+        all[1] = start_j;
+        all[2] = parent_size;
+        int* msg_to_send = all + 3;
         copy(a, a + TILE_SIZE, msg_to_send);
-        copy(parent, parent + TILE_SIZE * 2, msg_to_send + TILE_SIZE);
-        MPI_Send(msg_to_send, TILE_SIZE * 3, MPI_INT, 0, LABEL_TAG, MPI_COMM_WORLD);  // a[TILE_SIZE], parent[TILE_SIZE], size[TILE_SIZE]
+        copy(par_sz, par_sz + parent_size, msg_to_send + TILE_SIZE);
+        MPI_Send(msg_to_send, all_size, MPI_INT, 0, LABEL_TAG, MPI_COMM_WORLD);  // a[TILE_SIZE], parent[TILE_SIZE], size[TILE_SIZE]
         delete [] a;
-        delete [] msg_to_send;
-        delete [] parent;
+        delete [] all;
+        delete [] par_sz;
     }
     return 0;
 }
