@@ -31,3 +31,37 @@ void make_set(std::unordered_map<int, std::pair<int, int>>& parent, int x){
     parent[x].second = 1;
 
 }
+
+
+int find_root_tile(int* parent, int* size, int x){
+    if(parent[x] != x){
+        parent[x] = find_root_tile(parent, size, parent[x]);
+    }
+    return parent[x];
+
+}
+
+
+
+void union_sets_tile(int *parent, int* size, int x , int y){
+    int root1 = find_root_tile(parent, size, x);
+    int root2 = find_root_tile(parent, size, y);
+    if (root1 == root2){
+        return;
+    }
+    if(size[root1] > size[root2]){
+        parent[root2] = root1;
+        size[root2] += size[root1];
+    }
+    else {
+        parent[root1] = root2;
+        size[root1] += size[root2];
+    }
+}
+
+
+
+void make_set_tile(int* parent, int* size, int x){
+    parent[x] = x;
+    size[x] = 1;
+}

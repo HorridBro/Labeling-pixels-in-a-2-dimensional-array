@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/image.h
-includes.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
-
 /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
 vector
 -
@@ -30,49 +26,9 @@ opencv2/opencv.hpp
 includes.h
 /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
 
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h
-includes.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/main.cpp
-include/includes.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/includes.h
-include/utils.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h
-include/union_find.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/union_find.h
-include/image.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/image.h
-mpi.h
--
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/image.cpp
-../include/image.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/image.h
-../include/utils.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h
-
 /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/union_find.cpp
 ../include/union_find.h
 /home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/union_find.h
-
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/src/utils.cpp
-../include/utils.h
-/home/mihnea/CLionProjects/Labeling-pixels-in-a-2-dimensional-array/include/utils.h
-
-/usr/local/include/mpi.h
-stddef.h
--
-mpi_portable_platform.h
-/usr/local/include/mpi_portable_platform.h
-openmpi/ompi/mpi/cxx/mpicxx.h
-/usr/local/include/openmpi/ompi/mpi/cxx/mpicxx.h
-
-/usr/local/include/mpi_portable_platform.h
-omp.h
-/usr/local/include/omp.h
-omp.h
-/usr/local/include/omp.h
 
 /usr/local/include/opencv/cxcore.h
 opencv2/core/core_c.h
