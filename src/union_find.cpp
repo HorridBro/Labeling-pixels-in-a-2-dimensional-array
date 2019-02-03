@@ -10,6 +10,13 @@ int find_root(std::unordered_map<int, std::pair<int, int>>& parent, int x){
 
 
 void union_sets(std::unordered_map<int, std::pair<int, int>>& parent, int x, int y){
+    if(parent.find(x) == parent.end()){
+        return;
+    }
+    if(parent.find(y) == parent.end()){
+        return;
+    }
+
     int root1 = find_root(parent, x);
     int root2 = find_root(parent, y);
     if (root1 == root2){
