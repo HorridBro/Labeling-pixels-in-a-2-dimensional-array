@@ -67,6 +67,7 @@ void connected_component_labeling_serial(int** a, int rows, int cols){
 //void merge_tiles1(int* a, pair<int, int> start, pair<int, int> stop, int cols){
 //    for (int i = start.first ; i <= stop.first; ++i){
 //        for (int j = start.second; j <= stop.second; ++j){
+//            int idx = i*cols + j;
 //            if(!a[i][j]){
 //                continue;
 //            }
@@ -153,7 +154,7 @@ void merge_tiles(int** a, pair<int, int> start, pair<int, int> stop){
 void merge_parent(int *parent, int sz){
     for(int i = 0 ; i < sz; i+= 3){
 //        if(global_parent.find(parent[i]) == global_parent.end()){
-            global_parent[parent[i]] = {parent[i+1], parent[i+2]};
+        global_parent[parent[i]] = {parent[i+1], parent[i+2]};
 //        } else{
 //
 // global_parent[parent[i]].second = parent[i+2];
@@ -173,7 +174,7 @@ int connected_component_labeling_parallel_util(int** a, int rows, int cols, pair
         merge_tiles(a, start, stop);
         return 0;
     }
-    if(size == TILE_SIZE){
+    if(size <= TILE_SIZE){
 //        cout << "RIP\n";
         int msg_to_send [size + 4];
         MPI_Request req;
@@ -191,9 +192,10 @@ int connected_component_labeling_parallel_util(int** a, int rows, int cols, pair
 //            cout << endl;
         }
         //TODO cu isend
-       // MPI_Send(msg_to_send, size + 4, MPI_INT, dest, LABEL_TAG, MPI_COMM_WORLD);
-        MPI_Isend(msg_to_send, size + 2, MPI_INT, dest, LABEL_TAG, MPI_COMM_WORLD, &req);
-        dest = (dest + 1) % numprocs + 1;
+        //MPI_Send(msg_to_send, size + 4, MPI_INT, dest, LABEL_TAG, MPI_COMM_WORLD);
+        MPI_Isend(msg_to_send, size + 4, MPI_INT, dest, LABEL_TAG, MPI_COMM_WORLD, &req);
+        cout << "DST" << dest << endl;
+        dest = (dest + 1) % (numprocs -1) + 1;
         return 1;
     }
     else{
@@ -245,8 +247,8 @@ void connected_component_labeling_parallel(int** a, int rows, int cols) {
     MPI_Request req;
     int parent_size = 3 * global_parent.size() + 1;
 
-    for(int i = 1; i <= numprocs; i++){
-        MPI_Isend(&parent_size, 1, MPI_INT, dest, END_TAG, MPI_COMM_WORLD, &req);
+    for(int i = 1; i < numprocs; i++){
+        MPI_Isend(&parent_size, 1, MPI_INT, i, END_TAG, MPI_COMM_WORLD, &req);
 
     }
 //    int *par_sz= new int[parent_size];
@@ -431,10 +433,15 @@ int slave_main(int rank){
     MPI_Probe(0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
     int tag = status.MPI_TAG;
     while(tag != END_TAG){
-        int msg_size = 2*TILE_SIZE + 4;
+        int msg_size = 2 * TILE_SIZE + 4;
         int* a = new int[msg_size];
 //        cout << "PREP RECV\n";
-        MPI_Recv(a, msg_size, MPI_INT, 0, tag, MPI_COMM_WORLD, &status); // rows, cols , a[TILE_SIZE]
+        MPI_Recv(a, msg_size, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status); // rows, cols , a[TILE_SIZE]
+//        MPI_Probe(0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+//        tag = status.MPI_TAG;
+//        if(status.MPI_TAG == END_TAG){
+//            break;
+//        }
         int rows = a[0];
         int cols = a[1];
         int start_i = a[2];
@@ -485,14 +492,13 @@ int slave_main(int rank){
 //            }
 //            cout << " \n ";
 //        }
-
-
         MPI_Send(all, all_size, MPI_INT, 0, LABEL_TAG, MPI_COMM_WORLD);  // a[TILE_SIZE], parent[TILE_SIZE], size[TILE_SIZE]
 //        cout << "#####send " << start_i << "\t" << start_j << " sz = "<<TILE_SIZE << endl;
         delete [] a;
         delete [] all;
         delete [] par_sz;
     }
+    cout << "END id=" << rank << "\n";
 //    int recv_sz[1], sz;
 //    MPI_Recv(recv_sz, 1, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 //    sz = recv_sz[0];
