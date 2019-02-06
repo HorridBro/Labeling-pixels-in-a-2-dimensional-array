@@ -100,6 +100,7 @@ unordered_map<int, pair<int, int>> solve_tile(int* a, int rows, int cols){
 }
 
 void merge_tiles_arr(int* a, pair<int, int> start, pair<int, int> stop, int cols){
+//   cout << "start-stop " << start.first << " " << start.second << " " << stop.first << " " << stop.second << endl;
     for (int i = start.first ; i <= stop.first; ++i){
         for (int j = start.second; j <= stop.second; ++j){
             int idx = i * cols + j;
@@ -140,7 +141,7 @@ void merge_tiles_arr(int* a, pair<int, int> start, pair<int, int> stop, int cols
 
 
 void merge_tiles(int** a, pair<int, int> start, pair<int, int> stop){
-//    cout << start.first << " " << start.second << " " << stop.first << " " << stop.second << endl;
+
     for (int i = start.first ; i <= stop.first; ++i){
         for (int j = start.second; j <= stop.second; ++j){
             if(!a[i][j]){
@@ -189,8 +190,10 @@ void merge_tiles(int** a, pair<int, int> start, pair<int, int> stop){
 
 void merge_parent(int *parent, int sz){
     for(int i = 0 ; i < sz; i+= 3){
+//        cout << "(parent  " << parent[i] << " " << parent[i+1] << " " << parent[i+2] << ")";
         global_parent[parent[i]] = {parent[i+1], parent[i+2]};
     }
+//    cout << " \n";
 }
 
 
@@ -275,46 +278,117 @@ int connected_component_labeling_parallel_util(int** a, int rows, int cols, pair
 
 
 void connected_component_labeling_scatter(int* a, int rows, int cols){
-    cout << "abcd\n";
+    int rows_left = rows % numprocs;
     int size = rows * cols;
     int pieces = rows / numprocs;
     int piece_size = pieces * cols;
-    int rows_cols[] = {pieces, cols};
+//    int rows_cols[] = {pieces, cols};
+    int* initial_data = new int[numprocs * 2 + 2];
+    int* sendcount = initial_data + 2;
+    int* disps = initial_data + numprocs + 2;
     int* buff = new int[size];
-    int* bf = new int[pieces];
+   // int* bf = new int[pieces];
     int* parent_serialized;
-    MPI_Bcast(rows_cols, 2, MPI_INT, 0, MPI_COMM_WORLD);
-    parent_serialized = new int[size]; // possibly too much
-    MPI_Scatter(a, pieces, MPI_INT, buff, pieces, MPI_INT, 0, MPI_COMM_WORLD);
-    int rows_left = rows % numprocs;
-    cout << "@@\n";
-    if(rows_left != 0){
-        global_parent = solve_tile(a + (rows - rows_left) * cols, rows_left, cols);
+    initial_data[0] = pieces;
+    initial_data[1] = cols;
+    fill(sendcount, sendcount + numprocs, piece_size);
+    disps[0] = 0;
+    sendcount[0] += rows_left * cols;
+//    cout << rows << " " << cols << " " << " " << pieces << " " << piece_size << " " << rows_left << endl;
+    int skip = sendcount[0];
+    for(int i = 1; i < numprocs; i++){
+        disps[i] = skip;
+        skip += sendcount[i];
     }
-    cout << "ffff\n";
-    MPI_Gather(bf, piece_size, MPI_INT, a, piece_size, MPI_INT, 0, MPI_COMM_WORLD);
-    cout << "AAAA\n\n";
-    MPI_Gather(bf, piece_size, MPI_INT, parent_serialized, piece_size, MPI_INT, 0, MPI_COMM_WORLD);
-    cout << "###\n";
-    int nr_piece = 0;
-    for(int i = 0 ; i < size; i += piece_size){
-        cout << parent_serialized[0] << "\n";
-        merge_parent(parent_serialized + i + 1, parent_serialized[i]);
-    }
-    cout << "\nhalp\n";
+//    for(int i = 0; i < numprocs; i++){
+//        cout << disps[i] << "  " << sendcount[i] <<"\n";
+//    }
 
-    for(int i = pieces - 1; i < rows ; i+= pieces){
-        merge_tiles_arr(a, {i, 0}, {i + 1, cols - 1}, cols);
+    MPI_Bcast(initial_data, numprocs * 2 + 2, MPI_INT, 0, MPI_COMM_WORLD);
+    parent_serialized = new int[size]; // possibly too much
+
+
+//    cout << "piece size" << piece_size <<"\n";
+
+   MPI_Scatterv(a, sendcount, disps, MPI_INT, buff, sendcount[0], MPI_INT, 0, MPI_COMM_WORLD);
+//   MPI_Scatter(a, piece_size, MPI_INT, a, piece_size, MPI_INT, 0, MPI_COMM_WORLD);
+
+   global_parent = solve_tile(a, rows_left + pieces , cols);
+//         for(int i = 0; i< pieces + rows_left; i++) {
+//                for (int j = 0; j < cols; j++) {
+//                    cout << a[i * cols + j] << "\t";
+//                }
+//                cout << endl;
+//            }
+//    if(rows_left != 0){
+////        cout << "@@" << (rows - rows_left) * cols << "\n";
+//        int *b = a + (rows - rows_left) * cols;
+//        global_parent = solve_tile(b, rows_left, cols);
+////                for(int i = 0; i< rows_left; i++){
+////            for(int j = 0; j< cols; j++){
+////                cout << b[i * cols + j] << "\t";
+////            }
+////            cout << endl;
+////        }
+//    }
+//    cout << "ffff\n";
+
+
+
+//    MPI_Gather(bf, piece_size, MPI_INT, a, piece_size, MPI_INT, 0, MPI_COMM_WORLD);
+
+    MPI_Gatherv(a, sendcount[0], MPI_INT, a, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
+
+//    cout << "AAAA\n\n";
+//
+//    for(int i = 0; i< rows; i++){
+//        for(int j = 0; j< cols; j++){
+//            cout << a[i * cols + j] << "\t";
+//        }
+//        cout << endl;
+//    }
+//    cout << "\n\n\n";
+
+  //  MPI_Gather(parent_serialized, piece_size, MPI_INT, parent_serialized, piece_size , MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Gatherv(parent_serialized, sendcount[0], MPI_INT, parent_serialized, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
+//    cout << "##############\n";
+//    int nr_piece = 0;
+
+
+
+    for(int i = piece_size + rows_left * cols ; i < size; i += piece_size){
+        cout << "PAR " << parent_serialized[i] << " " << parent_serialized[i+1] << " " << parent_serialized[i+2]<< "\n";
+         merge_parent(parent_serialized + i + 1, parent_serialized[i]);
     }
+//    global_parent.erase(0);
+
+//    cout << "\nhalp\n";
+//
+    for(int i = pieces + rows_left; i < rows ; i+= pieces){
+        cout << "i=" << i << "\n";
+        merge_tiles_arr(a, {i - 1, 0}, {i, cols - 1}, cols);
+    }
+//    for(auto x : global_parent){
+//        cout << x.first << " " << x.second.first << " " << x.second.second << endl;
+//    }
+
+
+
+
     //MPI_Bcast(parent_serialized, size, MPI_INT, 0, MPI_COMM_WORLD);
 
     // merge parent
+
+
+    delete [] initial_data;
+    delete [] buff;
 
 
 
 
 }
 void connected_component_labeling_parallel(int* a, int rows, int cols) {
+
     connected_component_labeling_scatter(a, rows, cols);
 
 //    connected_component_labeling_parallel_util(a, rows, cols, {0, 0}, {rows - 1, cols - 1});
@@ -360,7 +434,6 @@ void connected_component_labeling_parallel(int* a, int rows, int cols) {
 
 
 int master_main(int argc, char* argv[]){
-    MPI_Comm_size (MPI_COMM_WORLD, &numprocs);
     int show_images = 0,  method = 0;
     string run_type;
     void (*connected_component_labeling)(int**, int, int);
@@ -410,30 +483,31 @@ int master_main(int argc, char* argv[]){
     }
 
      //testing
-    rows = 9;
-    cols = 9;
-    int *data1 = new int[rows * cols];
-//    for (int i = 0; i < rows; ++i){
-//        data[i] = new int[cols];
+//    rows = 21;
+//    cols = 5;
+//    int *data1 = new int[rows * cols];
+////    for (int i = 0; i < rows; ++i){
+////        data[i] = new int[cols];
+//    srand(time(0));
+////    }
+//    for(int i = 0; i< rows; i++){
+//        for(int j = 0; j< cols; j++){
+//            data1[i * cols + j] = 0;
+//            if(i  % 4){
+//                data1[i * cols + j] = i*cols + j + 1;
+//            } else{
+//                data1[i * cols + j] = 0;
+//            }
+//        }
 //    }
-    for(int i = 0; i< rows; i++){
-        for(int j = 0; j< cols; j++){
-            data1[i * cols + j] = 0;
-            if(i % 3){
-                data1[i * cols + j] = i*cols + j + 1;
-            } else{
-                data1[i * cols + j] = 0;
-            }
-        }
-    }
-    data_array = data1;
-    for(int i = 0; i< rows; i++){
-        for(int j = 0; j< cols; j++){
-            cout << data_array[i * cols + j] << "\t";
-        }
-        cout << endl;
-    }
-    cout << "\n\n\n";
+//    data_array = data1;
+//    for(int i = 0; i< rows; i++){
+//        for(int j = 0; j< cols; j++){
+//            cout << data_array[i * cols + j] << "\t";
+//        }
+//        cout << endl;
+//    }
+//    cout << "\n\n\n";
 
     //
     float duration;
@@ -451,20 +525,19 @@ int master_main(int argc, char* argv[]){
     }
 
 
-
-
+//   this_thread::sleep_for( (chrono::seconds(2)));
+//    cout << "\n\n\n";
 //
-////
-   this_thread::sleep_for( (chrono::seconds(4)));
-    cout << "\n\n\n";
+//    for(int i = 0; i< rows; i++){
+//        for(int j = 0; j< cols; j++){
+//            cout << data_array[i *cols+j] << "\t";
+//        }
+//        cout << endl;
+//    }
+//    return 0;
 
-    for(int i = 0; i< rows; i++){
-        for(int j = 0; j< cols; j++){
-            cout << data1[i *cols+j] << "\t";
-        }
-        cout << endl;
-    }
-    return 0;
+
+
 //    exit(0);
     cout << run_type << " Connected Component Labeling Duration = " << duration << " seconds\n";
     uchar* colored = color_labels(data, rows, cols);
@@ -488,45 +561,75 @@ int master_main(int argc, char* argv[]){
 
 
 int slave_main(int rank){
-    int rows_cols[2], rows, cols, size, i = 1, parent_size, *parent_serialized, *a, *b, *par_buff;
-//    cout << "START SLAVE\n";
-    MPI_Bcast(rows_cols, 2, MPI_INT, 0, MPI_COMM_WORLD);
-    rows = rows_cols[0];
-    cols = rows_cols[1];
+//    cout << "enter\n\n";
+    int *initial_data, rows, cols, size, i = 1, parent_size, *parent_serialized, *a, *b, *par_buff, *sendcount, *disps;
+    initial_data = new int [numprocs * 2 + 2];
+    MPI_Bcast(initial_data, numprocs * 2 + 2, MPI_INT, 0, MPI_COMM_WORLD);
+    rows = initial_data[0];
+    cols = initial_data[1];
+    sendcount = initial_data + 2;
+    disps = initial_data + numprocs + 2;
     size = rows * cols;
     a = new int[size];
-    b = NULL;
-//    cout << "sfafaRECV11\n";
-    MPI_Scatter(b, 1, MPI_INT, a, size, MPI_INT, 0, MPI_COMM_WORLD);
-//    cout << "RECV\n";
+    b = new int[size];
+//    cout << "sfafaRECV  "<<  rows << " " << cols<< " "<< size << "\n";
+    MPI_Scatterv(b, sendcount, disps, MPI_INT, a, size, MPI_INT, 0, MPI_COMM_WORLD);
+//    cout << "dadad\n";
     unordered_map<int, pair<int, int>> parent = solve_tile(a, rows, cols);
-    parent_size = parent.size() * 3;
+//    if(rank ==1){
+//    for(int ii = 0; ii< rows; ii++){
+//        for(int jj = 0; jj< cols; jj++){
+//            int idx = ii * cols + jj;
+//            cout << a[idx] << "\t";
+//        }
+//        cout << endl;
+//    }
+//    }
+
+    int par_sz = int(parent.size() * 3);
+    parent_size = max(par_sz, size);
     parent_serialized = new int[parent_size];
-    parent_serialized[0] = parent_size;
+    parent_serialized[0] = par_sz;
     for(auto x : parent){
         parent_serialized[i] = x.first;
         parent_serialized[i + 1] = x.second.first;
         parent_serialized[i + 2] = x.second.second;
+//        cout << "PAR " << parent_serialized[i] << " " << parent_serialized[i+1] << " " << parent_serialized[i+2]<< "\n";
         i += 3;
     }
-//    cout << "scattera " << rank << "\n";
-    MPI_Gather(a, size, MPI_INT, b, 0, MPI_INT, 0, MPI_COMM_WORLD);
-    par_buff = new int[parent_size];
+    parent_serialized[parent_size - 1] = 0;
+//   cout << "scattera " << rank << "\n";
+
+//    MPI_Gather(a, size, MPI_INT, b, 0, MPI_INT, 0, MPI_COMM_WORLD);
+
+    MPI_Gatherv(a, size, MPI_INT, b, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
 //    cout << "scatter pare " << rank <<"\n";
-    MPI_Gather(parent_serialized, size, MPI_INT, b, 0, MPI_INT, 0, MPI_COMM_WORLD);
+    //MPI_Gather(parent_serialized, size, MPI_INT, b, 0, MPI_INT, 0, MPI_COMM_WORLD);
+
+//    cout << "BFG "<< size << " " << parent_size << " " << par_sz << "\n";
+    MPI_Gatherv(parent_serialized, size, MPI_INT, b, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
+//    cout << "AFG\n";
 //    cout << "DONE " << rank <<"\n";
 //    int total_size = size * numprocs;
 //    int* all_parents = new int[total_size];
 //    MPI_Bcast(all_parents, size, MPI_INT, 0, MPI_COMM_WORLD);
-
-
-
-
-
-
-
-
+    delete [] a;
+    delete [] b;
+    delete [] initial_data;
+    delete [] parent_serialized;
     return 0;
+
+
+
+
+
+
+
+
+
+
+
+
     MPI_Status status;
     MPI_Probe(0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
     int tag = status.MPI_TAG;
@@ -628,6 +731,7 @@ int main(int argc, char* argv[]) {
     int my_rank = 0, ret_code = 0;
     MPI_Init (&argc, &argv);
     MPI_Comm_rank (MPI_COMM_WORLD, &my_rank);
+    MPI_Comm_size (MPI_COMM_WORLD, &numprocs);
     if (my_rank == 0){
         ret_code = master_main(argc, argv);
     } else{
