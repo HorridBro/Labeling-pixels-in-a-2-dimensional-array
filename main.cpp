@@ -52,7 +52,6 @@ void connected_component_labeling_serial(int** a, int rows, int cols){
             }
         }
     }
-    //TODO this should be uncommented
     for (int i = 0; i <  rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             if(!a[i][j]){
@@ -61,9 +60,6 @@ void connected_component_labeling_serial(int** a, int rows, int cols){
             a[i][j] = find_root(parent, a[i][j]);
         }
     }
-
-    //test
-//    global_parent = parent;
 }
 
 
@@ -103,7 +99,6 @@ unordered_map<int, pair<int, int>> solve_tile(int* a, int rows, int cols){
 }
 
 void merge_tiles_arr(int* a, pair<int, int> start, pair<int, int> stop, int cols){
-//   cout << "start-stop " << start.first << " " << start.second << " " << stop.first << " " << stop.second << endl;
     for (int i = start.first ; i <= stop.first; ++i){
         for (int j = start.second; j <= stop.second; ++j){
             int idx = i * cols + j;
@@ -129,14 +124,12 @@ void merge_tiles_arr(int* a, pair<int, int> start, pair<int, int> stop, int cols
             else {
                 a[idx] = m;
                 for (int n : neighbours){
-//                        cout << "M(" << m  << " " << n  << ") ";
                     if(global_parent.find(n) == global_parent.end()){
                         make_set(global_parent, n);
                     }
                     union_sets(global_parent, m, find_root(global_parent, n));
 
                 }
-//                cout << endl;
             }
         }
     }
@@ -169,25 +162,15 @@ void merge_tiles(int** a, pair<int, int> start, pair<int, int> stop){
             else {
                 a[i][j] = m;
                 for (int n : neighbours){
-//                        cout << "M(" << m  << " " << n  << ") ";
                         if(global_parent.find(n) == global_parent.end()){
                             make_set(global_parent, n);
                         }
                         union_sets(global_parent, m, find_root(global_parent, n));
 
                 }
-//                cout << endl;
             }
         }
     }
-//    for (int i = start.first ; i <=  stop.first; ++i){
-//        for (int j = stop.first; j <= stop.second; ++j){
-//            if(!a[i][j]){
-//                continue;
-//            }
-//            a[i][j] = find_root(global_parent, a[i][j]);
-//        }
-//    }
 }
 
 
@@ -296,19 +279,16 @@ void connected_component_labeling_scatter(int* a, int rows, int cols){
     int size = rows * cols;
     int pieces = rows / numprocs;
     int piece_size = pieces * cols;
-//    int rows_cols[] = {pieces, cols};
     int* initial_data = new int[numprocs * 2 + 2];
     int* sendcount = initial_data + 2;
     int* disps = initial_data + numprocs + 2;
     int* buff = new int[size];
-   // int* bf = new int[pieces];
     int* parent_serialized;
     initial_data[0] = pieces;
     initial_data[1] = cols;
     fill(sendcount, sendcount + numprocs, piece_size);
     disps[0] = 0;
     sendcount[0] += rows_left * cols;
-//    cout << rows << " " << cols << " " << " " << pieces << " " << piece_size << " " << rows_left << endl;
     int skip = sendcount[0];
     for(int i = 1; i < numprocs; i++){
         disps[i] = skip;
@@ -335,20 +315,11 @@ void connected_component_labeling_scatter(int* a, int rows, int cols){
 
     MPI_Gatherv(a, sendcount[0], MPI_INT, a, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
 
-//    cout << "AAAA\n\n";
-//
-//    for(int i = 0; i< rows; i++){
-//        for(int j = 0; j< cols; j++){
-//            cout << a[i * cols + j] << "\t";
-//        }
-//        cout << endl;
-//    }
-//    cout << "\n\n\n";
 
-  //  MPI_Gather(parent_serialized, piece_size, MPI_INT, parent_serialized, piece_size , MPI_INT, 0, MPI_COMM_WORLD);
+
     MPI_Gatherv(parent_serialized, sendcount[0], MPI_INT, parent_serialized, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
-//    cout << "##############\n";
-//    int nr_piece = 0;
+
+
 
 
 
@@ -433,7 +404,7 @@ int master_main(int argc, char* argv[]){
     int show_images = 0,  method = 0;
     string run_type;
     void (*connected_component_labeling)(int**, int, int);
-    string usage = "Usage:\t" + string(argv[0]) +" image_path [-hsv] [-show_images] [-tile_size=32]\n";
+    string usage = "Usage:\t" + string(argv[0]) +" image_path [-hsv] [-show_images]\n";
     if (argc < 2){
         cout << "Error, invalid args! " << usage;
         return 1;
@@ -451,13 +422,13 @@ int master_main(int argc, char* argv[]){
             cout << usage;
             return 0;
         }
-        else if(ar == "-h"){
-            cout << usage;
-            return 0;
-        }
-        else if(ar.rfind(tile) == 0){
-            TILE_SIZE = stoi(ar.substr(tile.length()));
-        }
+//        else if(ar == "-h"){
+//            cout << usage;
+//            return 0;
+//        }
+//        else if(ar.rfind(tile) == 0){
+//            TILE_SIZE = stoi(ar.substr(tile.length()));
+//        }
     }
     if(numprocs > 1){
 //        connected_component_labeling = connected_component_labeling_parallel;
