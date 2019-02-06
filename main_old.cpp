@@ -119,9 +119,9 @@ void merge_tiles_arr(int* a, pair<int, int> start, pair<int, int> stop, int cols
             else {
                 a[idx] = m;
                 for (int n : neighbours){
-//                    if(global_parent.find(n) == global_parent.end()){
-//                        make_set(global_parent, n);
-//                    }
+                    if(global_parent.find(n) == global_parent.end()){
+                        make_set(global_parent, n);
+                    }
                     union_sets(global_parent, m, find_root(global_parent, n));
 
                 }
@@ -256,18 +256,15 @@ void connected_component_labeling_scatter(int* a, int rows, int cols){
     MPI_Scatterv(a, sendcount, disps, MPI_INT, buff, sendcount[0], MPI_INT, 0, MPI_COMM_WORLD);
 
 
-    int root_rows = rows_left + pieces;
-
-
-    for (int i = 0 ; i < root_rows; ++i){
+    for (int i = 0 ; i < rows_left + pieces; ++i){
         for (int j = 0; j < cols; ++j){
             int idx = i * cols + j;
             if(!a[idx]){
                 continue;
             }
-//            if(global_parent.find(a[idx]) != global_parent.end()){
+            if(global_parent.find(a[idx]) != global_parent.end()){
                 a[idx] = find_root(global_parent, a[idx]);
-//            }
+            }
         }
     }
 
@@ -453,9 +450,9 @@ int slave_main(int rank){
             if(!a[idx]){
                 continue;
             }
-//            if(global_parent.find(a[idx]) != global_parent.end()){
+            if(global_parent.find(a[idx]) != global_parent.end()){
                 a[idx] = find_root(global_parent, a[idx]);
-//            }
+            }
         }
     }
     MPI_Gatherv(a, size, MPI_INT, b, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
