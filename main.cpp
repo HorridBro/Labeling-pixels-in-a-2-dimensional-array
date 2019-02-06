@@ -7,7 +7,6 @@
 #include "include/image.h"
 #include <mpi.h>
 
-
 #include <thread>
 
 using namespace std;
@@ -53,6 +52,7 @@ void connected_component_labeling_serial(int** a, int rows, int cols){
             }
         }
     }
+    //TODO this should be uncommented
     for (int i = 0; i <  rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             if(!a[i][j]){
@@ -61,6 +61,9 @@ void connected_component_labeling_serial(int** a, int rows, int cols){
             a[i][j] = find_root(parent, a[i][j]);
         }
     }
+
+    //test
+//    global_parent = parent;
 }
 
 
@@ -196,6 +199,17 @@ void merge_parent(int *parent, int sz){
 //    cout << " \n";
 }
 
+void merge_parent_inv(unordered_map<int, pair<int, int>> & parent, int* par){
+    int i = 1;
+    par[0] = par[parent.size()];
+    for(auto x : parent){
+        par[i] = x.first;
+        par[i + 1] = x.second.first;
+        par[i + 2] = x.second.second;
+        i += 3;
+    }
+}
+
 
 int connected_component_labeling_parallel_util(int** a, int rows, int cols, pair<int, int> start, pair<int, int> stop){
     int size = rows * cols;
@@ -314,24 +328,6 @@ void connected_component_labeling_scatter(int* a, int rows, int cols){
 //   MPI_Scatter(a, piece_size, MPI_INT, a, piece_size, MPI_INT, 0, MPI_COMM_WORLD);
 
    global_parent = solve_tile(a, rows_left + pieces , cols);
-//         for(int i = 0; i< pieces + rows_left; i++) {
-//                for (int j = 0; j < cols; j++) {
-//                    cout << a[i * cols + j] << "\t";
-//                }
-//                cout << endl;
-//            }
-//    if(rows_left != 0){
-////        cout << "@@" << (rows - rows_left) * cols << "\n";
-//        int *b = a + (rows - rows_left) * cols;
-//        global_parent = solve_tile(b, rows_left, cols);
-////                for(int i = 0; i< rows_left; i++){
-////            for(int j = 0; j< cols; j++){
-////                cout << b[i * cols + j] << "\t";
-////            }
-////            cout << endl;
-////        }
-//    }
-//    cout << "ffff\n";
 
 
 
@@ -357,7 +353,7 @@ void connected_component_labeling_scatter(int* a, int rows, int cols){
 
 
     for(int i = piece_size + rows_left * cols ; i < size; i += piece_size){
-        cout << "PAR " << parent_serialized[i] << " " << parent_serialized[i+1] << " " << parent_serialized[i+2]<< "\n";
+//        cout << "PAR " << parent_serialized[i] << " " << parent_serialized[i+1] << " " << parent_serialized[i+2]<< "\n";
          merge_parent(parent_serialized + i + 1, parent_serialized[i]);
     }
 //    global_parent.erase(0);
@@ -365,7 +361,7 @@ void connected_component_labeling_scatter(int* a, int rows, int cols){
 //    cout << "\nhalp\n";
 //
     for(int i = pieces + rows_left; i < rows ; i+= pieces){
-        cout << "i=" << i << "\n";
+//        cout << "i=" << i << "\n";
         merge_tiles_arr(a, {i - 1, 0}, {i, cols - 1}, cols);
     }
 //    for(auto x : global_parent){
@@ -516,6 +512,11 @@ int master_main(int argc, char* argv[]){
         connected_component_labeling_parallel(data_array, rows, cols);
         high_resolution_clock::time_point stop = high_resolution_clock::now();
         duration = duration_cast<chrono::duration<float>>( stop - start ).count();
+        for(int i = 0 ; i < rows; i++){
+            for(int j = 0 ; j < cols ; j++){
+                data[i][j] = data_array[i * cols + j];
+            }
+        }
     } else{
 
         high_resolution_clock::time_point start = high_resolution_clock::now();
@@ -523,7 +524,6 @@ int master_main(int argc, char* argv[]){
         high_resolution_clock::time_point stop = high_resolution_clock::now();
         duration = duration_cast<chrono::duration<float>>( stop - start ).count();
     }
-
 
 //   this_thread::sleep_for( (chrono::seconds(2)));
 //    cout << "\n\n\n";
@@ -535,10 +535,8 @@ int master_main(int argc, char* argv[]){
 //        cout << endl;
 //    }
 //    return 0;
-
-
-
 //    exit(0);
+
     cout << run_type << " Connected Component Labeling Duration = " << duration << " seconds\n";
     uchar* colored = color_labels(data, rows, cols);
     Mat final = create_output_mat(colored, rows, cols);
@@ -597,7 +595,7 @@ int slave_main(int rank){
 //        cout << "PAR " << parent_serialized[i] << " " << parent_serialized[i+1] << " " << parent_serialized[i+2]<< "\n";
         i += 3;
     }
-    parent_serialized[parent_size - 1] = 0;
+//    parent_serialized[parent_size - 1] = 0;
 //   cout << "scattera " << rank << "\n";
 
 //    MPI_Gather(a, size, MPI_INT, b, 0, MPI_INT, 0, MPI_COMM_WORLD);
