@@ -1,10 +1,10 @@
 # Labeling-pixels-in-a-2-dimensional-array
 
-###Compile
+##Compile
 ```
 cmake --build cmake-build-debug --target main
 ```
-###Run
+##Run
 ```
  mpirun -np [proc_nr] cmake-build-debug/main image_path [-hsv] [-show_images]
 ```
