@@ -373,6 +373,7 @@ int slave_main(int rank){
 }
 
 
+
 int main(int argc, char* argv[]) {
     int my_rank = 0, ret_code = 0;
     MPI_Init (&argc, &argv);

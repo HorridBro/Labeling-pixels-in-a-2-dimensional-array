@@ -2,7 +2,7 @@
 
 ## Compile
 ```
-cmake --build cmake-build-debug --target main
+cmake --build cmake-build-debug --target main -- -j $(grep 'cpu cores' /proc/cpuinfo | uniq | awk -F ': ' '{print $2}')
 ```
 ## Run
 ```
