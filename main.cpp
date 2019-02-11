@@ -119,9 +119,6 @@ void merge_tiles_arr(int* a, pair<int, int> start, pair<int, int> stop, int cols
             else {
                 a[idx] = m;
                 for (int n : neighbours){
-//                    if(global_parent.find(n) == global_parent.end()){
-//                        make_set(global_parent, n);
-//                    }
                     union_sets(global_parent, m, find_root(global_parent, n));
 
                 }
@@ -207,79 +204,35 @@ void connected_component_labeling_scatter(int* a, int rows, int cols){
         disps[i] = skip;
         skip += sendcount[i];
     }
-//    for(int i = 0; i < numprocs; i++){
-//        cout << disps[i] << "  " << sendcount[i] <<"\n";
-//    }
-
     MPI_Bcast(initial_data, numprocs * 2 + 3, MPI_INT, 0, MPI_COMM_WORLD);
-    parent_serialized = new int[size]; // possibly too much
-
-
-//    cout << "piece size" << piece_size <<"\n";
-
+    parent_serialized = new int[size];
     MPI_Scatterv(a, sendcount, disps, MPI_INT, buff, sendcount[0], MPI_INT, 0, MPI_COMM_WORLD);
-//   MPI_Scatter(a, piece_size, MPI_INT, a, piece_size, MPI_INT, 0, MPI_COMM_WORLD);
-
     global_parent = solve_tile(a, rows_left + pieces , cols);
-
-
-
-
-//    MPI_Gather(bf, piece_size, MPI_INT, a, piece_size, MPI_INT, 0, MPI_COMM_WORLD);
-
     MPI_Gatherv(a, sendcount[0], MPI_INT, a, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
-
-
     MPI_Gatherv(parent_serialized, sendcount[0], MPI_INT, parent_serialized, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
-
-
-
     for(int i = piece_size + rows_left * cols ; i < size; i += piece_size){
-//        cout << "PAR " << parent_serialized[i] << " " << parent_serialized[i+1] << " " << parent_serialized[i+2]<< "\n";
          merge_parent(parent_serialized + i + 1, parent_serialized[i]);
     }
-//    global_parent.erase(0);
-
-//    cout << "\nhalp\n";
-//
     for(int i = pieces + rows_left; i < rows ; i+= pieces){
-//        cout << "i=" << i << "\n";
         merge_tiles_arr(a, {i - 1, 0}, {i, cols - 1}, cols);
     }
-
-
     merge_parent_inv(global_parent, parent_serialized);
-
-   // cout <<"BCAAS " << size << endl;
-
     MPI_Bcast(parent_serialized, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Scatterv(a, sendcount, disps, MPI_INT, buff, sendcount[0], MPI_INT, 0, MPI_COMM_WORLD);
-
-
     int root_rows = rows_left + pieces;
-
-
     for (int i = 0 ; i < root_rows; ++i){
         for (int j = 0; j < cols; ++j){
             int idx = i * cols + j;
             if(!a[idx]){
                 continue;
             }
-//            if(global_parent.find(a[idx]) != global_parent.end()){
                 a[idx] = find_root(global_parent, a[idx]);
-//            }
         }
     }
 
     MPI_Gatherv(a, sendcount[0], MPI_INT, a, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
-
-
     delete [] initial_data;
     delete [] buff;
-
-
-
-
 }
 void connected_component_labeling_parallel(int* a, int rows, int cols) {
     connected_component_labeling_scatter(a, rows, cols);
@@ -311,7 +264,6 @@ int master_main(int argc, char* argv[]){
         }
     }
     if(numprocs > 1){
-//        connected_component_labeling = connected_component_labeling_parallel;
         run_type = "Parallel";
     }
     else {
@@ -329,35 +281,6 @@ int master_main(int argc, char* argv[]){
             data_array[i * cols + j] = data[i][j];
         }
     }
-
-     //testing
-//    rows = 21;
-//    cols = 5;
-//    int *data1 = new int[rows * cols];
-////    for (int i = 0; i < rows; ++i){
-////        data[i] = new int[cols];
-//    srand(time(0));
-////    }
-//    for(int i = 0; i< rows; i++){
-//        for(int j = 0; j< cols; j++){
-//            data1[i * cols + j] = 0;
-//            if(i  % 4){
-//                data1[i * cols + j] = i*cols + j + 1;
-//            } else{
-//                data1[i * cols + j] = 0;
-//            }
-//        }
-//    }
-//    data_array = data1;
-//    for(int i = 0; i< rows; i++){
-//        for(int j = 0; j< cols; j++){
-//            cout << data_array[i * cols + j] << "\t";
-//        }
-//        cout << endl;
-//    }
-//    cout << "\n\n\n";
-
-    //
     float duration;
     if( run_type == "Parallel"){
         high_resolution_clock::time_point start = high_resolution_clock::now();
@@ -376,19 +299,6 @@ int master_main(int argc, char* argv[]){
         high_resolution_clock::time_point stop = high_resolution_clock::now();
         duration = duration_cast<chrono::duration<float>>( stop - start ).count();
     }
-
-//   this_thread::sleep_for( (chrono::seconds(2)));
-//    cout << "\n\n\n";
-//
-//    for(int i = 0; i< rows; i++){
-//        for(int j = 0; j< cols; j++){
-//            cout << data_array[i *cols+j] << "\t";
-//        }
-//        cout << endl;
-//    }
-//    return 0;
-//    exit(0);
-
     cout << run_type <<  " with " << numprocs << " processes Connected Component Labeling Duration = " << duration << " seconds\n";
     string folder = string("results/") + run_type + "/" + img_path.substr(img_path.find("/") + 1, img_path.find(".") - img_path.find("/") -1); ;
     uchar* colored = color_labels(data, rows, cols);
@@ -440,22 +350,18 @@ int slave_main(int rank){
     }
     MPI_Gatherv(a, size, MPI_INT, b, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Gatherv(parent_serialized, size, MPI_INT, b, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
-
     int total_size = total_rows * cols;
     int* all_parent = new int[total_size];
     MPI_Bcast(all_parent, total_size, MPI_INT, 0, MPI_COMM_WORLD);
     merge_parent(all_parent + 1, all_parent[0]);
     MPI_Scatterv(b, sendcount, disps, MPI_INT, a, size, MPI_INT, 0, MPI_COMM_WORLD);
-
     for (int k = 0 ; k < rows; ++k){
         for (int j = 0; j < cols; ++j){
             int idx = k * cols + j;
             if(!a[idx]){
                 continue;
             }
-//            if(global_parent.find(a[idx]) != global_parent.end()){
                 a[idx] = find_root(global_parent, a[idx]);
-//            }
         }
     }
     MPI_Gatherv(a, size, MPI_INT, b, sendcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
