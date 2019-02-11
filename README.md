@@ -1,8 +1,13 @@
 # Labeling-pixels-in-a-2-dimensional-array
 
-
-./main image_path [-hsv] [-show_images]
-
+###Compile
+```
+cmake --build cmake-build-debug --target main
+```
+###Run
+```
+ mpirun -np [proc_nr] cmake-build-debug/main image_path [-hsv] [-show_images]
+```
 ## Prerequisites
 ### Opencv
  - https://github.com/milq/milq/blob/master/scripts/bash/install-opencv.sh
