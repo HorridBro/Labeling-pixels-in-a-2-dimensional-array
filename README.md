@@ -4,4 +4,7 @@
 ./main image_path [-hsv] [-show_images]
 
 ## Prerequisites
-https://github.com/milq/milq/blob/master/scripts/bash/install-opencv.sh
+### Opencv
+ - https://github.com/milq/milq/blob/master/scripts/bash/install-opencv.sh
+### OpenMPI
+- https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.3.tar.gz
