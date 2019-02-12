@@ -9,6 +9,8 @@ cmake --build cmake-build-debug --target main -- -j $(grep 'cpu cores' /proc/cpu
  mpirun -np [proc_nr] cmake-build-debug/main image_path [-hsv] [-show_images]
 ```
 ## Prerequisites
+### Cmake
+- https://cmake.org/download/
 ### Opencv
  - https://github.com/milq/milq/blob/master/scripts/bash/install-opencv.sh
 ### OpenMPI
